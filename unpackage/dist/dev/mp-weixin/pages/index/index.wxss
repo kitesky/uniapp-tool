@@ -1,0 +1,17 @@
+
+.uni-card__header {
+		border-bottom: 0 !important;
+}
+.bottom-margin {
+		height: 30px;
+}
+.lable::before {
+		display: inline-block;
+		width: 6px;
+		height: 14px;
+		border-radius: 6px;
+		background: #FF4136;
+		content: "";
+		vertical-align: 1px;
+		margin-right: 10px;
+}

@@ -1,0 +1,14 @@
+
+.search-content {
+    padding: 0 10px 10px 10px;
+    display: flex;
+    flex-wrap: wrap;
+}
+.title {
+    padding: 3px 15px;
+    margin: 3px 5px;
+    background-color: #f2f2f2;
+    border-radius: 20px;
+    color:#3b4144;
+    font-size: 14px;
+}

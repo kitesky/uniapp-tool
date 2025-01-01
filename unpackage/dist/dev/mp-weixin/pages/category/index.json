@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "分类",
+  "usingComponents": {
+    "search": "../../components/search",
+    "uni-col": "../../uni_modules/uni-row/components/uni-col/uni-col",
+    "uni-row": "../../uni_modules/uni-row/components/uni-row/uni-row"
+  }
+}
