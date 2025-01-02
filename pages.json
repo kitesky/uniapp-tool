@@ -11,7 +11,8 @@
 			"path": "pages/task/index",
 			"needLogin": true,
 			"style": {
-				"navigationBarTitleText": "任务"
+				"navigationBarTitleText": "任务",
+				"enablePullDownRefresh": true
 			}
 		},
 		{

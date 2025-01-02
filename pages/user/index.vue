@@ -1,7 +1,7 @@
 <template>
 	<view>
-		<view class="bg-info-subtle p-3">
-			<view class="d-flex justify-content-between align-items-center">
+		<view class="bg-user">
+			<view class="d-flex justify-content-between align-items-center px-3 py-4">
 				<view>
 					<view class="d-flex justify-content-start align-items-center">
 						<image style="width: 50px; height: 50px;" src="/static/images/avatar/avatar_boy.png"></image>
@@ -41,7 +41,7 @@
 				
 				<uni-grid-item :index="2">
 					<view class="grid-item-content">
-						<button size="mini" type="primary" plain="true">签到</button>
+						<button size="mini" type="primary" plain="true">充值</button>
 					</view>
 				</uni-grid-item>
 			</uni-grid>
@@ -51,21 +51,18 @@
 			<uni-list>
 				<uni-list-item 
 					title="订单列表" 
-					:rightText="user.balance"
 					:show-extra-icon="true" showArrow is-link
 					:extra-icon="{size: '22', type: 'cart' }"
 				>
 				</uni-list-item>
 				<uni-list-item
 					title="账号管理" 
-					:rightText="user.balance"
 					:show-extra-icon="true" showArrow is-link
 					:extra-icon="{size: '22', type: 'gear' }"
 				>
 				</uni-list-item>
 				<uni-list-item
 					title="日志记录" 
-					:rightText="user.balance"
 					:show-extra-icon="true" showArrow is-link
 					:extra-icon="{size: '22', type: 'list' }"
 				>
@@ -119,6 +116,11 @@
 </script>
 
 <style>
+	.bg-user {
+		background-image: url(https://api.idcd.com/assets/images/bg/10.jpg);
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
     .grid-item-content {
         flex: 1;
         position: relative;

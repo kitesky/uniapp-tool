@@ -1,16 +1,16 @@
 "use strict";
 const common_vendor = require("../common/vendor.js");
 const utils_request = require("../utils/request.js");
-const homeStore = common_vendor.defineStore("home", {
+const taskStore = common_vendor.defineStore("task", {
   state: () => {
     return {};
   },
   getters: {},
   actions: {
-    homeData(params) {
+    task(params) {
       return new Promise((resolve, reject) => {
         utils_request.request.send({
-          url: "/home",
+          url: "/task",
           method: "GET",
           success: (res) => {
             resolve(res.data);
@@ -23,5 +23,5 @@ const homeStore = common_vendor.defineStore("home", {
     }
   }
 });
-exports.homeStore = homeStore;
-//# sourceMappingURL=../../.sourcemap/mp-weixin/stores/home.js.map
+exports.taskStore = taskStore;
+//# sourceMappingURL=../../.sourcemap/mp-weixin/stores/task.js.map

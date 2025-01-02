@@ -1,0 +1,9 @@
+
+.bg-task {
+		background-image: url(https://api.idcd.com/assets/images/bg/20.jpg);
+		background-repeat: no-repeat;
+		background-size: cover;
+}
+.btn-launch {
+		min-width: 74px;
+}

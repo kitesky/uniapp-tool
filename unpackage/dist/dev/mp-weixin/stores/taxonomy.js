@@ -7,10 +7,6 @@ const taxonomyStore = common_vendor.defineStore("taxonomy", {
   },
   getters: {},
   actions: {
-    increment() {
-      this.count++;
-    },
-    // 更新用户信息
     taxonomy(params) {
       return new Promise((resolve, reject) => {
         utils_request.request.send({

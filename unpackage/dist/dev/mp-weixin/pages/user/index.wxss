@@ -1,4 +1,9 @@
 
+.bg-user {
+		background-image: url(https://api.idcd.com/assets/images/bg/10.jpg);
+		background-repeat: no-repeat;
+		background-size: cover;
+}
 .grid-item-content {
         flex: 1;
         position: relative;

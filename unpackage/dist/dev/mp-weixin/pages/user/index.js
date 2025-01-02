@@ -75,7 +75,6 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
     k: common_vendor.p({
       title: "订单列表",
-      rightText: $data.user.balance,
       ["show-extra-icon"]: true,
       showArrow: true,
       ["is-link"]: true,
@@ -86,7 +85,6 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
     l: common_vendor.p({
       title: "账号管理",
-      rightText: $data.user.balance,
       ["show-extra-icon"]: true,
       showArrow: true,
       ["is-link"]: true,
@@ -97,7 +95,6 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
     m: common_vendor.p({
       title: "日志记录",
-      rightText: $data.user.balance,
       ["show-extra-icon"]: true,
       showArrow: true,
       ["is-link"]: true,

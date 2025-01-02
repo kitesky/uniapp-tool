@@ -7,10 +7,6 @@ export const taxonomyStore = defineStore('taxonomy', {
     },
     getters: {},
     actions: {
-        increment() {
-            this.count++
-        },
-        // 更新用户信息
         taxonomy(params) {
             return new Promise((resolve, reject) => {
                 request.send({
