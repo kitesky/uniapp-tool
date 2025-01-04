@@ -1,1 +1,0 @@
-{"version":3,"file":"config.js","sources":["utils/config.js"],"sourcesContent":["export default {\r\n    'API_URL': 'http://127.0.0.1:3000/api',\r\n\t// 'API_URL': 'https://api.idcd.com/api',\r\n}"],"names":[],"mappings":";AAAA,MAAe,SAAA;AAAA,EACX,WAAW;AAAA;AAEf;;"}

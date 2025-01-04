@@ -1,0 +1,26 @@
+import { defineStore } from 'pinia'
+import request from '@/utils/request'
+
+export const orderStore = defineStore('order', {
+    state: () => {
+        return {}
+    },
+    getters: {},
+    actions: {
+        getOrderList(params) {
+            return new Promise((resolve, reject) => {
+                request.send({
+                    url: '/order',
+                    method: 'GET',
+					data: params,
+                    success: (res) => {
+                        resolve(res.data)
+                    },
+                    fail: (error) => {
+                        reject(error)
+                    }
+                })
+            })
+        },
+    },
+})

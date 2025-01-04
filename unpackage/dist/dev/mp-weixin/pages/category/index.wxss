@@ -1,8 +1,0 @@
-
-.vh100 {
-		height: calc(100vh - 56px);
-		overflow: auto;
-}
-.scroll-Y {
-		overflow: auto;
-}

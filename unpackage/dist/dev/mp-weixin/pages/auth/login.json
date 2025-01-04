@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "用户登录",
-  "usingComponents": {
-    "m-p-wexin-login": "../../components/login/mp-weixin"
-  }
-}

@@ -21,10 +21,10 @@ export const userStore = defineStore('user', {
             this.count++
         },
         // 更新用户信息
-        userSetting(params) {
+        setProfile(params) {
             return new Promise((resolve, reject) => {
                 request.send({
-                    url: '/user/setting',
+                    url: '/user/profile',
                     method: 'POST',
                     data: params,
                     success: (res) => {

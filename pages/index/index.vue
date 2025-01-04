@@ -29,7 +29,7 @@
 								<image style="width: 24px; height: 24px;" mode="heightFix" :src="item.icon"></image>
 								<text class="fw-bold ms-2">快捷写作</text>
 							</view>
-							<view class="gray fw-light mt-2 f12">{{item.description}}</view>
+							<view class="gray mt-2 f12">{{item.description}}</view>
 						</view>
 					</uni-grid-item>
 				</uni-grid>
@@ -49,7 +49,7 @@
 							<text class="fw-bold ms-2">{{vv.name}}</text>
 							<image style="width: 24px; height: 24px;" mode="heightFix" :src="vv.icon"></image>
 						</view>
-						<view class="gray fw-light mt-2 f12">{{vv.description}}</view>
+						<view class="gray mt-2 f12">{{vv.description}}</view>
 					</view>
 				</uni-grid-item>
 			</uni-grid>	

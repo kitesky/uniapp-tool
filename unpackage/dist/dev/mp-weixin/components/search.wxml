@@ -1,1 +1,0 @@
-<view class="bg-body-secondary bg-opacity-75" bindtap="{{b}}"><uni-search-bar wx:if="{{a}}" u-i="74e4e73a-0" bind:__l="__l" u-p="{{a}}"></uni-search-bar></view>

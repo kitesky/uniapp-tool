@@ -1,1 +1,0 @@
-<view class="uni-grid-wrap data-v-07acefee"><view id="{{a}}" ref="uni-grid" class="{{['uni-grid', 'data-v-07acefee', b && 'uni-grid--border']}}" style="{{'border-left-color:' + c}}"><slot/></view></view>

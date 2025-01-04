@@ -1,1 +1,0 @@
-<view class="login-card"><m-p-wexin-login u-i="3261f904-0" bind:__l="__l"></m-p-wexin-login></view>
