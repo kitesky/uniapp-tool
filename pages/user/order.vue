@@ -1,8 +1,6 @@
 <template>
 	<view>
-		<view class="sticky-top bg-secondary-subtle border-bottom">
-			<v-tabs v-model="current" bgColor="#DDDDDD" lineColor="#FF4136" padding="8px" activeColor="#FF4136" field="name" :fixed="true" :tabs="tabs" @change="onChangeTab"></v-tabs>
-		</view>
+		<v-tabs v-model="current" bgColor="#DDDDDD" lineColor="#FF4136" padding="8px" activeColor="#FF4136" field="name" :fixed="true" :tabs="tabs" @change="onChangeTab"></v-tabs>
 		
 		<view>
 			<view
@@ -12,9 +10,9 @@
 				<view>
 					<view class="mb-2">{{item.product_name}}</view>
 					<view class="f12 text-secondary mb-2">{{item.created_at}}</view>
-					<view class="f12">
-						<text class="text-secondary">{{item.order_type_text}}</text> 
-						<text class="fw-bold ms-3">￥{{item.pay_amount}}</text>
+					<view>
+						<text class="text-secondary f12">{{item.order_type_text}}</text> 
+						<text class="f14 ms-3">￥{{item.pay_amount}}</text>
 					</view>
 				</view>
 				<view>
@@ -101,7 +99,6 @@ export default {
 			})
 		},
 		onChangeTab(index) {
-			console.log(index)
 			this.current = index
 			this.params.order_status = this.statusOptions[index]
 			this.params.page = 1

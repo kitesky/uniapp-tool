@@ -91,6 +91,13 @@
 			{
 				"navigationBarTitleText" : "搜索"
 			}
+		},
+		{
+			"path" : "pages/tool/test",
+			"style" : 
+			{
+				"navigationBarTitleText" : "测试页面"
+			}
 		}
 	],
 	"globalStyle": {

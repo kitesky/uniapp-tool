@@ -4,7 +4,9 @@
 			<view class="d-flex justify-content-between align-items-center px-3 py-4">
 				<view>
 					<view class="d-flex justify-content-start align-items-center">
-						<image style="width: 50px; height: 50px;" src="/static/images/avatar/avatar_boy.png"></image>
+						<navigator animation-type="pop-in" animation-duration="300" url="/pages/user/profile">
+							<image style="width: 50px; height: 50px;" src="/static/images/avatar/avatar_boy.png"></image>
+						</navigator>
 						<view class="ms-2">
 							<view>{{user.name}}</view>
 							<view class="d-flex justify-content-start text-secondary mt-1 f12">
@@ -46,7 +48,6 @@
 				
 				<uni-grid-item :index="2">
 					<view class="grid-item-content">
-						
 						<navigator animation-type="pop-in" animation-duration="300" url="/pages/user/recharge">
 							<button size="mini" type="default" class="bg-danger border-0 text-white" plain="false">充值</button>
 						</navigator>
@@ -55,48 +56,21 @@
 			</uni-grid>
 		</view>
 
-		<view class="mt-5">
-			<uni-list>
-				<uni-list-item 
-					title="订单列表" 
-					:show-extra-icon="true" 
-					:thumb="icons.cart" thumb-size="sm"
-					link to="/pages/user/order"
-				>
-				</uni-list-item>
-				
-				<uni-list-item
-					title="账单明细" 
-					:show-extra-icon="true" 
-					:thumb="icons.balance" thumb-size="sm"
-					link to="/pages/user/balance"
-				>
-				</uni-list-item>
-				
-				<uni-list-item
-					title="积分记录" 
-					:show-extra-icon="true" 
-					:thumb="icons.score" thumb-size="sm"
-					link to="/pages/user/score"
-				>
-				</uni-list-item>
-				
-				<uni-list-item
-					title="账号管理" 
-					:show-extra-icon="true" 
-					:thumb="icons.setting" thumb-size="sm"
-					link to="/pages/user/setting"
-				>
-				</uni-list-item>
-				
-				<uni-list-item
-					title="当前版本" 
-					:show-extra-icon="true" 
-					:thumb="icons.version" thumb-size="sm"
-					rightText="V24.12.31"
-				>
-				</uni-list-item>
-			</uni-list>
+		<view class="mt-5 border-top">
+			<view v-for="(item, index) in navList" :key="'nav' + index">
+				<navigator animation-type="pop-in" animation-duration="300" :url="item.link">
+					<view class="d-flex justify-content-between align-items-center border-bottom p-3">
+						<view class="d-flex justify-content-center align-items-center">
+							<image style="width: 22px; height: 22px;" mode="heightFix" :src="item.icon"></image>
+							<view class="ms-2">{{item.title}}</view>
+						</view>
+						<view>
+							<text v-if="item.text" class="text-secondary f14">{{item.text}}</text>
+							<uni-icons v-else  color="#6c757d" type="right" size="16"></uni-icons>
+						</view>
+					</view>
+				</navigator>
+			</view>
 		</view>
 	</view>
 </template>
@@ -109,7 +83,14 @@
 		data() {
 			return {
 				icons: config.icons,
-				user: {}
+				user: {},
+				navList: [
+					{title: "订单列表", icon: config.icons.cart, link: "/pages/user/order", text: ""},
+					{title: "账单明细", icon: config.icons.balance, link: "/pages/user/balance", text: ""},
+					{title: "积分记录", icon: config.icons.score, link: "/pages/user/score", text: ""},
+					{title: "账号管理", icon: config.icons.setting, link: "/pages/user/setting", text: ""},
+					{title: "当前版本", icon: config.icons.version, link: "/pages/user/index", text: "V24.12.31"},
+				],
 			}
 		},
 		beforeCreate() {

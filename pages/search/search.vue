@@ -2,7 +2,7 @@
     <view class="sticky-top">
         <view class="bg-body-secondary bg-opacity-75">
             <uni-search-bar
-                v-model="keywords"
+                v-model="keyword"
                 :focus="true"
                 placeholder="搜索关键词..."
                 radius="100"
@@ -14,46 +14,67 @@
         </view>
     </view>
 
-    <view v-if="search == false">
-        <uni-section v-if="history.length > 0" title="历史搜索" titleFontSize="15px" type="square">
-            <template v-slot:right>
-                <uni-icons @click="clearHistoryData" type="trash" size="22"></uni-icons>
-            </template>
-            
-            <view class="search-content">
-                <template v-for="(item, index) in history" :key="index">
-                    <text @click="onClickKeywords(item)" class="title">{{ item }}</text>
-                </template>
-            </view>
-        </uni-section>
-
-        <uni-section title="热门搜索" titleFontSize="15px" type="square">
-            <view class="search-content">
+    <view v-if="search == false" class="p-3">
+		<view class="mb-3">
+			<view class="d-flex justify-content-start align-items-center">
+				<view class="fw-bold lable">历史搜索</view>
+				<uni-icons @click="clearHistoryData" type="trash" size="22"></uni-icons>
+			</view>
+			
+			<view class="search-content gap-3 mt-3">
+			    <template v-for="(item, index) in history" :key="index">
+			        <text @click="onClickKeywords(item)" class="bg-body-secondary rounded-3 py-2 px-3">{{ item }}</text>
+			    </template>
+			</view>
+		</view>
+		
+		<view class="mb-3">
+			<view class="d-flex justify-content-start align-items-center">
+				<view class="fw-bold lable">热门搜索</view>
+			</view>
+			
+            <view class="search-content gap-3 mt-3">
                 <template v-for="(item, index) in hot" :key="index">
-                    <text @click="onClickKeywords(item)" class="title">{{ item }}</text>
+                    <text @click="onClickKeywords(item)" class="bg-body-secondary rounded-3 py-2 px-3 me-2">{{ item }}</text>
                 </template>
             </view>
-        </uni-section>
+		</view>
     </view>
+	
+	<view v-else>
+		<view 
+			v-for="(item, index) in items" 
+			:key="'tool' + index" 
+			class="px-3 mb-3"
+			@click="onToolClick(item)"
+		>
+			<view class="d-flex justify-content-start align-items-center bg-body-tertiary rounded-2 p-2 mt-2">
+				<image style="width: 40px; height: 40px;" mode="heightFix" :src="item.icon"></image>
+				<view class="ms-2">
+					<view class="fw-bold f16">{{item.name}}</view>
+					<view class="text-body-secondary mt-1 f12">{{item.description}}</view>
+				</view>
+			</view>
+		</view>
+	</view>
 </template>
 
 <script>
     import { mapActions } from 'pinia'
+	import {toolStore} from '@/stores/tool'
     export default {
         components: {
         },
         data() {
             return {
                 search: false, // 0 搜索面板 1 结果面板
-                keywords: '',
-                params: { keywords: '' },
+                keyword: '',
+                params: { keyword: '' },
                 isFetch: false,
                 history: [],
-                hot: []
+                hot: [],
+				items: []
             }
-        },
-        onPullDownRefresh() {
-
         },
         onShareAppMessage() {},
         mounted() {
@@ -62,6 +83,12 @@
             this.fetchHotSearch()
         },
         methods: {
+			...mapActions(toolStore, ['getToolList']),
+			fetch() {
+				this.getToolList(this.params).then(resp => {
+					this.items = resp.data.items
+				})
+			},
             fetchHotSearch() {
                 var that = this
             },
@@ -69,8 +96,9 @@
                 this.search = true
                 this.isFetch = true
                 // 设置搜索历史
-                this.params.keywords = this.keywords
-                this.setHistoryData(this.keywords)
+                this.params.keyword = this.keyword
+                this.setHistoryData(this.keyword)
+				this.fetch()
             },
             onCancel() {
                 this.search = false
@@ -85,15 +113,20 @@
                     this.history = history ? history : []
                 }
             },
-            setHistoryData(keywords) {
+            setHistoryData(keyword) {
+				if (keyword.trim() == '') {
+					return
+				}
+				console.log(111,keyword.trim())
+				
                 var data = this.history
 
                 // 是否在数组中 删除
-                var index = data.indexOf(keywords)
+                var index = data.indexOf(keyword)
                 if (index > -1) {
                     data.splice(index, 1)
                 }
-                data.push(keywords)
+                data.push(keyword)
                 uni.setStorageSync('searchHistoryKeywords', data)
             },
             clearHistoryData() {
@@ -109,26 +142,33 @@
                     }
                 });
             },
-            onClickKeywords(keywords) {
-                this.keywords = keywords
+            onClickKeywords(keyword) {
+                this.keyword = keyword
                 this.onSearch()
-            }
+            },
+			onToolClick(item) {
+				uni.navigateTo({
+					url: item.url
+				});
+			}
         }
     }
 </script>
 
 <style>
+.lable::before {
+	display: inline-block;
+	width: 6px;
+	height:14px;
+	border-radius: 6px;
+	background: #FF4136;
+	content: "";
+	vertical-align: 1px;
+	margin-right: 10px;
+}
 .search-content {
     padding: 0 10px 10px 10px;
     display: flex;
     flex-wrap: wrap;
-}
-.title {
-    padding: 3px 15px;
-    margin: 3px 5px;
-    background-color: #f2f2f2;
-    border-radius: 20px;
-    color:#3b4144;
-    font-size: 14px;
 }
 </style>

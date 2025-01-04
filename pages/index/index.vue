@@ -88,7 +88,7 @@
 				})
 			},
 			onToolClick(item) {
-				uni.reLaunch({
+				uni.navigateTo({
 					url: item.url
 				});
 			}

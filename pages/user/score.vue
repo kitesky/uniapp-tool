@@ -1,72 +1,88 @@
 <template>
 	<view>
-		<view class="border-bottom">
-			<view class="py-3">
-				<uni-segmented-control 
-					:current="current" 
-					:values="orderTypes" 
-					style-type="text"
-					active-color="#FF4136" 
-					@clickItem="onClickItem" 
-				/>
+		<view>
+			<view
+				v-for="(item, index) in items" :key="'order-' + index"
+				class="d-flex justify-content-between align-items-baseline px-3 py-3 border-bottom"
+			>
+				<view>
+					<view>{{item.title}}</view>
+					<view class="f12 my-1">
+						<text class="text-secondary">{{item.description}}</text> 
+					</view>
+					<view class="f12 text-secondary mb-1">{{item.created_at}}</view>
+				</view>
+				<view>
+					<text :style="{color: item.type_color}" class="f16 fw-bold">{{item.type_text}}{{item.amount}}</text>
+				</view>
 			</view>
 		</view>
 		
-		<view>
-			<view v-if="current === 0">
-				<view class="d-flex justify-content-between align-items-baseline px-3 py-3 border-bottom">
-					<view>
-						<view class="mb-1">视频特效生成</view>
-						<view class="f12">
-							<text class="text-secondary">消费支出</text> 
-						</view>
-						<view class="f12 text-secondary mb-1">12-16 10:10</view>
-					</view>
-					<view>
-						<text class="f16 fw-bold text-danger">+ 0.07</text>
-					</view>
-				</view>
-			</view>
-			<view v-if="current === 1"><text class="content-text">选项卡2的内容</text></view>
-			<view v-if="current === 2"><text class="content-text">选项卡3的内容</text></view>
-		</view>
+        <view class="load-more">
+            <uni-load-more :status="status" :content-text="contentText" />
+        </view>
 	</view>
 </template>
 
 <script>
 import {mapActions} from 'pinia'
-import {userStore} from '@/stores/user'
+import {scoreStore} from '@/stores/score'
 export default {
 	data() {
 		return {
-			orderTypes: ['全部', '支出', '充值', '提现', '收入', '退款'],
-			current: 0,
+			items: [],
+			params: {'page': 1,'page_size': 10},
+			status: 'loading',
+			contentText: {
+				contentdown: '上拉查看更多',
+				contentrefresh: '正在加载中',
+				contentnomore: '已经到底了'
+			},
 		}
 	},
 	beforeCreate() {
-		// this.auth.check()
+		this.auth.check()
 	},
 	onLoad() {
-		// this.fetch()
-		// uni.reLaunch({ url: '/pages/auth/login' })
+		this.fetch()
+	},
+	onReachBottom() {
+		// 没有数据 停止加载
+		if (this.status == 'noMore' || this.status == 'loading') {
+			return false
+		}
+
+		this.status = 'loading'
+		this.params.page++
+
+		this.fetch()
 	},
 	onPullDownRefresh() {
-		// 刷新用户信息
-		// this.fetch()
-		uni.stopPullDownRefresh()
+		this.params.page = 1
+		this.status = 'more'
+		this.items = []
+		this.fetch()
 	},
 	methods: {
-		...mapActions(userStore, ['userInfo', 'setProfile']),
+		...mapActions(scoreStore, ['getScoreList']),
 		fetch() {
-			this.userInfo().then(resp => {
-				this.user = resp.data
+			this.getScoreList(this.params).then(resp => {
+				// 追加数据
+				resp.data.items.forEach(item => {
+					this.items.push(item)
+				})
+
+				// 修改状态
+				if (this.items.length < resp.data.total) {
+					this.status = 'more'
+				}
+
+				if (this.items.length == resp.data.total) {
+					this.status = 'noMore'
+				}
+				
 				uni.stopPullDownRefresh()
 			})
-		},
-		onClickItem(e) {
-			if (this.current !== e.currentIndex) {
-				this.current = e.currentIndex
-			}
 		}
 	}
 }
