@@ -42,6 +42,7 @@ const hideLoading = () => {
 
 const toast = {
 	success: success,
+	info: info,
 	error: error,
 	warning: warning,
 	loading: loading,

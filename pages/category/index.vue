@@ -9,7 +9,7 @@
 						<view
 							v-for="(item, index) in items" 
 							:key="'taxonomy' + index" 
-							:class="['p-3', selectIndex == index ? 'bg-body-secondary fw-bold' : '']"
+							:class="['p-3', selectIndex == index ? 'bg-body-secondary text-danger fw-bold' : '']"
 							@click="onTabClick(index)"
 						>
 							{{item.name}}
@@ -57,29 +57,38 @@
 		onLoad() {
 			this.fetch()
 		},
-		onPullDownRefresh() {
-			this.fetch()
+		onShow() {
+			var selectIndex = uni.getStorageSync('selectIndex')
+			if (typeof selectIndex === 'number') {
+				this.selectIndex = selectIndex
+				this.onTabClick(selectIndex)
+			}
 		},
 		methods: {
 			...mapActions(taxonomyStore, ['taxonomy']),
 			fetch() {
 				this.taxonomy().then(resp => {
 					this.items = resp.data
-					this.list = resp.data[this.selectIndex].items
-					console.log('items', this.items)
-					uni.stopPullDownRefresh()
+					if (typeof(resp.data[this.selectIndex]) == 'object') {
+						this.list = resp.data[this.selectIndex].items
+					}
 				})
 			},
 			onTabClick(index) {
 				this.selectIndex = index
-				this.list = this.items[index].items
+				uni.setStorageSync('selectIndex', index);
+				
+				if (typeof(this.items[index]) == 'object') {
+					this.list = this.items[index].items
+				}
 			},
 			onToolClick(item) {
 				uni.navigateTo({
 					url: item.url
 				});
 			}
-		}
+		},
+		watch: {},
 	}
 </script>
 

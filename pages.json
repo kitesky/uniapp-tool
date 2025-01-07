@@ -28,7 +28,7 @@
 			"needLogin": true,
 			"style": {
 				"navigationBarTitleText": "个人资料",
-				"enablePullDownRefresh": true
+				"enablePullDownRefresh": false
 			}
 		},
 		{
@@ -82,7 +82,8 @@
 			"path" : "pages/category/index",
 			"style" : 
 			{
-				"navigationBarTitleText" : "分类"
+				"navigationBarTitleText" : "分类",
+				"enablePullDownRefresh": false
 			}
 		},
 		{
@@ -97,6 +98,30 @@
 			"style" : 
 			{
 				"navigationBarTitleText" : "测试页面"
+			}
+		},
+		{
+			"path" : "pages/chat/chat",
+			"style" : 
+			{
+				"navigationBarTitleText" : "对话"
+				// "navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/task/check-in",
+			"style" : 
+			{
+				"navigationBarTitleText" : "签到中心",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path" : "pages/user/vip",
+			"style" : 
+			{
+				"navigationBarTitleText" : "开通会员",
+				"enablePullDownRefresh": true
 			}
 		}
 	],
@@ -128,6 +153,12 @@
 				"selectedIconPath": "static/images/tabBar/taxonomy_fill.png",
 				"text": "分类"
 			},
+			// {
+			// 	"pagePath": "pages/chat/chat",
+			// 	"iconPath": "static/images/tabBar/chat.png",
+			// 	"selectedIconPath": "static/images/tabBar/chat_fill.png",
+			// 	"text": "对话"
+			// },
 			{
 				"pagePath": "pages/task/index",
 				"iconPath": "static/images/tabBar/reward.png",

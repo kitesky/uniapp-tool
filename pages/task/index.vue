@@ -1,24 +1,27 @@
 <template>
-	<view class="mx-3">
-		<view class="bg-danger bg-opacity-100 rounded-4 p-4">
+	<view class="mx-3 mt-1">
+		<view class="bg-danger bg-opacity-100 rounded-4">
 			<uni-grid :column="3" :highlight="false" :show-border="false" :square="false" @change="onGridChange">
 				<uni-grid-item :index="0">
-					<view class="text-white">
+					<view class="grid-item-content gap-2 py-4 text-white">
 						<view class="f14">积分收益</view>
-						<view class="fs-3">0</view>
+						<view class="fs-3 fw-bold">0</view>
 					</view>
 				</uni-grid-item>
 				
 				<uni-grid-item :index="1">
-					<view class="text-white">
-						<view class="f14">积分收益</view>
-						<view class="fs-3">0</view>
+					<view class="grid-item-content gap-2 py-4 text-white">
+						<view class="f14">现金收益</view>
+						<view>
+							<text class="text-light">￥</text>
+							<text class="fs-3 fw-bold">0</text>
+						</view>
 					</view>
 				</uni-grid-item>
 				
 				<uni-grid-item :index="2">
-					<view class="d-flex justify-content-center align-items-center">
-						<button size="mini" type="default" class="bg-white text-black border-0" plain="true">去提现</button>
+					<view class="grid-item-content gap-2 py-4">
+						<button size="mini" type="default" class="bg-white text-black border-0" plain="true">兑换</button>
 					</view>
 				</uni-grid-item>
 			</uni-grid>
@@ -58,9 +61,10 @@
 				items: [],
 			}
 		},
-		onLoad() {
+		onShow() {
 			this.fetch()
 		},
+		onLoad() {},
 		onPullDownRefresh() {
 			this.fetch()
 		},
@@ -71,7 +75,7 @@
 			},
 			onLaunch(item) {
 				if (item.launch_url) {
-					uni.reLaunch({url: item.launch_url});
+					uni.navigateTo({url: item.launch_url});
 					return
 				}
 				
@@ -88,11 +92,6 @@
 </script>
 
 <style>
-	.bg-task {
-		background-image: url(https://api.idcd.com/assets/images/bg/20.jpg);
-		background-repeat: no-repeat;
-		background-size: cover;
-	}
 	.btn-launch {
 		min-width: 74px;
 	}

@@ -8,9 +8,13 @@
 				class="d-flex justify-content-between align-items-baseline px-3 py-3 border-bottom"
 			>
 				<view>
-					<view class="mb-2">{{item.product_name}}</view>
-					<view class="f12 text-secondary mb-2">{{item.created_at}}</view>
-					<view>
+					<view class="mb-2">{{item.title}}</view>
+					<view class="f12 text-secondary mb-1">{{item.created_at}}</view>
+					<view class="hstack gap-1">
+						<text class="text-secondary f12">{{item.order_no}}</text>
+						<image @click="copyOrderNo(item.order_no)" style="width: 12px; height: 12px;" :src="icons.copy"></image>
+					</view>
+					<view class="mt-2">
 						<text class="text-secondary f12">{{item.order_type_text}}</text> 
 						<text class="f14 ms-3">￥{{item.pay_amount}}</text>
 					</view>
@@ -30,9 +34,11 @@
 <script>
 import {mapActions} from 'pinia'
 import {orderStore} from '@/stores/order'
+import config from '@/utils/config'
 export default {
 	data() {
 		return {
+			icons: config.icons,
 			tabs: [
 				{ id: 0, name: '全部', disabled: false },
 				{ id: 1, name: '待支付', disabled: false },
@@ -105,6 +111,15 @@ export default {
 			this.items = []
 			this.status = 'more'
 			this.fetch()
+		},
+		copyOrderNo(text) {
+			var that = this
+			uni.setClipboardData({
+				data: text,
+				success: function () {
+					that.toast.success('复制成功')
+				}
+			})
 		}
 	}
 }

@@ -16,7 +16,7 @@
 				<view class="fs-5 fw-bold">精选推荐</view>
 				<view class="fs-6">
 					<view class="d-flex justify-content-start align-items-center">
-						<image style="width: 24px; height: 24px;" src="/static/icons/gift.svg"></image>
+						<image style="width: 24px; height: 24px;" :src="icons.gift"></image>
 						<text class="ms-1 fw-bold text-secondary">分享有礼</text>
 					</view>
 				</view>
@@ -40,11 +40,13 @@
 		<view class="rounded-3 mx-2 my-4 p-2" v-for="(v,i) in items.taxonomy" :key="'taxonomy-' + i" :style="{backgroundColor: v.meta.bg_color}">
 			<view class="d-flex justify-content-between align-items-center p-2">
 				<view class="fs-5 fw-bold lable">{{v.name}}</view>
-				<view class="text-secondary">查看更多<uni-icons color="6c757d" type="right" size="16"></uni-icons></view>
+				<view @click="onViewMoreClick(i)" class="text-secondary">
+					查看更多<uni-icons color="6c757d" type="right" size="16"></uni-icons>
+				</view>
 			</view>
 			<uni-grid :column="2" :showBorder="false" :square="false">
 				<uni-grid-item v-for="(vv,ii) in v.items" :key="'tool-' + ii">
-					<view @click="onToolClick(item)" class="bg-light rounded-3 m-2 p-2">
+					<view @click="onToolClick(vv)" class="bg-light rounded-3 m-2 p-2">
 						<view class="d-flex justify-content-between align-items-center">
 							<text class="fw-bold ms-2">{{vv.name}}</text>
 							<image style="width: 24px; height: 24px;" mode="heightFix" :src="vv.icon"></image>
@@ -63,12 +65,14 @@
 	import {mapActions} from 'pinia'
 	import {homeStore} from '@/stores/home'
 	import Search from '@/components/search'
+	import config from '@/utils/config'
 	export default {
 		components: {
 			Search
 		},
 		data() {
 			return {
+				icons: config.icons,
 				items: {}
 			}
 		},
@@ -83,13 +87,18 @@
 			fetch() {
 				this.homeData().then(resp => {
 					this.items = resp.data
-					console.log('items', this.items)
 					uni.stopPullDownRefresh()
 				})
 			},
 			onToolClick(item) {
 				uni.navigateTo({
 					url: item.url
+				});
+			},
+			onViewMoreClick(index) {
+				uni.setStorageSync('selectIndex', index);
+				uni.switchTab({
+					url: '/pages/category/index'
 				});
 			}
 		}

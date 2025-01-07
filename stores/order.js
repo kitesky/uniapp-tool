@@ -7,6 +7,21 @@ export const orderStore = defineStore('order', {
     },
     getters: {},
     actions: {
+        createOrder(params) {
+            return new Promise((resolve, reject) => {
+                request.send({
+                    url: '/order/create',
+                    method: 'POST',
+					data: params,
+                    success: (res) => {
+                        resolve(res.data)
+                    },
+                    fail: (error) => {
+                        reject(error)
+                    }
+                })
+            })
+        },
         getOrderList(params) {
             return new Promise((resolve, reject) => {
                 request.send({

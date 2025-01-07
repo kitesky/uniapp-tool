@@ -10,7 +10,7 @@
 				{{user.mmid}}
 			</view>
 		</view>
-		
+
 		<view class="mx-3 mt-3">
 			<uni-forms ref="customForm" :rules="customRules" :modelValue="customFormData" label-position="top">
 				<uni-forms-item label="充值金额" required name="amount">
@@ -22,15 +22,22 @@
 					<uni-data-checkbox v-model="customFormData.option" :localdata="options" />
 				</uni-forms-item> -->
 			</uni-forms>
-			
+
 			<button class="bg-danger mt-3" type="primary" @click="submit('customForm')">立即支付</button>
 		</view>
 	</view>
 </template>
 
 <script>
-	import {mapActions} from 'pinia'
-	import {userStore} from '@/stores/user'
+	import {
+		mapActions
+	} from 'pinia'
+	import {
+		userStore
+	} from '@/stores/user'
+	import {
+		orderStore
+	} from '@/stores/order'
 	export default {
 		data() {
 			return {
@@ -38,11 +45,22 @@
 					amount: 5,
 					option: 5
 				},
-				options: [
-					{ text: '5元', value: 5 },
-					{ text: '20元', value: 20 },
-					{ text: '50元', value: 50 },
-					{ text: '100元', value: 100 }
+				options: [{
+						text: '5元',
+						value: 5
+					},
+					{
+						text: '20元',
+						value: 20
+					},
+					{
+						text: '50元',
+						value: 50
+					},
+					{
+						text: '100元',
+						value: 100
+					}
 				],
 				user: {},
 				// 自定义表单校验规则
@@ -51,14 +69,14 @@
 						rules: [{
 							required: true,
 							errorMessage: '充值金额不能为空'
-						},{
-							validateFunction:function(rule,value,data,callback){
-								if (value < 1) {
-									callback('充值最低金额为1元')
+						}, {
+							validateFunction: function(rule, value, data, callback) {
+								if (value < 0.1) {
+									callback('充值最低金额为0.1元')
 								}
 								return true
 							}
-					    }]
+						}]
 					},
 				},
 			}
@@ -79,7 +97,8 @@
 			this.fetch()
 		},
 		methods: {
-			...mapActions(userStore, ['userInfo', 'setProfile']),
+			...mapActions(userStore, ['userInfo']),
+			...mapActions(orderStore, ['createOrder']),
 			fetch() {
 				this.userInfo().then(resp => {
 					this.user = resp.data
@@ -88,9 +107,31 @@
 			},
 			submit(ref) {
 				var that = this
-				this.$refs[ref].validate().then(res => {
-					that.setProfile(res).then(resp => {
-						that.toast.success('资料设置成功')
+				that.$refs[ref].validate().then(res => {
+					var params = {
+						"order_type": "recharge",
+						"amount": parseFloat(that.customFormData.amount)
+					}
+					that.createOrder(params).then(resp => {
+						// data = resp.data
+						console.log(resp.code, resp.data)
+						if (resp.code != 200) {
+							that.toast.error(resp.message)
+							return
+						}
+
+						uni.requestPayment({
+						    provider: 'wxpay',
+						    ...resp.data,
+						    success: function (res) {
+								that.toast.success('充值成功')
+						        that.fetch()
+						    },
+						    fail: function (err) {
+						        console.log('fail:' + JSON.stringify(err))
+								that.toast.info('取消支付')
+						    }
+						});
 					})
 				}).catch(err => {
 					console.log('err', err);
@@ -100,8 +141,7 @@
 		watch: {
 			"customFormData.option": {
 				handler(newVal, oldVal) {
-					this.customFormData.amount = newVal
-					console.log(newVal)
+					this.customFormData.amount = parseFloat(newVal)
 				},
 				immediate: true,
 				deep: true

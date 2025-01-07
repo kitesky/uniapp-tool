@@ -2,6 +2,28 @@ import CryptoJS from 'crypto-js'
 import config from '@/utils/config'
 import toast from '@/utils/toast'
 
+const uploadFile = (url, filePath, callback) => {
+	uni.uploadFile({
+		url: config.API_URL + url,
+		filePath: filePath,
+		name: 'file',
+		timeout: 30000,
+		header: buildHeader('POST', ''),
+		success: (uploadFileRes) => {
+			console.log(uploadFileRes, uploadFileRes.data)
+			callback(null, uploadFileRes);
+			// if (uploadFileRes.data.code == 200) {
+			// 	callback(null, uploadFileRes);
+			// } else {
+			// 	toast.error(uploadFileRes.data.message)
+			// }
+		},
+		fail: (error) => {
+			callback(error, null);
+		}
+	})
+}
+
 const buildHeader = (method, data) => {
 	console.log('buildHeader params ->', method, typeof(data))
 	var version = '1.0';
@@ -14,8 +36,8 @@ const buildHeader = (method, data) => {
 	if (method == 'POST') {
 		if (typeof(data) == 'object') {
 			data = JSON.stringify(data)
+			body = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(data))
 		}
-	    body = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(data))
 	}
 	
 	var plainText = clientID + nonce + timestamp + version + body;
@@ -94,8 +116,10 @@ uni.addInterceptor('request', {
     }
 })
 
+
 export default {
     send(options) {
         return uni.request(options)
-    }
+    },
+	uploadFile: uploadFile
 }

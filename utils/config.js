@@ -10,6 +10,12 @@ const icons = {
 	score: 'https://api.idcd.com/assets/icons/score.svg',
 	setting: 'https://api.idcd.com/assets/icons/setting.svg',
 	version: 'https://api.idcd.com/assets/icons/version.svg',
+	avatarSystem: 'https://api.idcd.com/assets/avatar/system-avatar.svg',
+	avatarGirl: 'https://api.idcd.com/assets/avatar/avatar_girl.png',
+	avatarBoy: 'https://api.idcd.com/assets/avatar/avatar_boy.png',
+	send: 'https://api.idcd.com/assets/icons/send.svg',
+	sendFill: 'https://api.idcd.com/assets/icons/send_fill.svg',
+	gift: 'https://api.idcd.com/assets/icons/gift.svg',
 }
 
 export default {

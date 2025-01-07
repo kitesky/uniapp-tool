@@ -21,5 +21,19 @@ export const taskStore = defineStore('task', {
                 })
             })
         },
+		checkIn() {
+		    return new Promise((resolve, reject) => {
+		        request.send({
+		            url: '/check-in',
+		            method: 'POST',
+		            success: (res) => {
+		                resolve(res.data)
+		            },
+		            fail: (error) => {
+		                reject(error)
+		            }
+		        })
+		    })
+		},
     },
 })

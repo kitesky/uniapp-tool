@@ -1,6 +1,9 @@
 <template>
 	<view class="m-3">
 		<uni-forms ref="customForm" :rules="customRules" :modelValue="customFormData">
+			<uni-forms-item label="头像">
+				<uni-file-picker @select="onImageSelect" fileMediatype="image" :image-styles="imageStyles" v-model="avatar" :del-icon="false" disable-preview limit="1"></uni-file-picker>
+			</uni-forms-item>
 			<uni-forms-item label="昵称" required name="name">
 				<uni-easyinput v-model="customFormData.name" placeholder="请输入姓名" />
 			</uni-forms-item>
@@ -19,9 +22,22 @@
 <script>
 	import {mapActions} from 'pinia'
 	import {userStore} from '@/stores/user'
+	import request from '@/utils/request'
 	export default {
 		data() {
 			return {
+				avatar: {
+					name:"avatar.png",
+					extname:"png",
+					url:"",
+				},
+				imageStyles: {
+					width: 100,
+					height: 100,
+					border: {
+						radius: '50%'
+					}
+				},
 				customFormData: {
 					name: '',
 					sex: 'female',
@@ -65,9 +81,16 @@
 		},
 		methods: {
 			...mapActions(userStore, ['userInfo', 'setProfile']),
+			onImageSelect(e) {
+				console.log('upload',e)
+				request.uploadFile('/upload/avatar', e.tempFilePaths[0], (res) => {
+					console.log(res)
+				})
+			},
 			fetch() {
 				this.userInfo().then(resp => {
 					this.customFormData = resp.data
+					this.avatar.url = resp.data.avatar
 					uni.stopPullDownRefresh()
 				})
 			},
