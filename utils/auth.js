@@ -18,7 +18,10 @@ const check = () => {
 	console.log('auth check!')
     if (! isLogin()) {
         uni.reLaunch({ url: '/pages/auth/login' })
+		return false
     }
+	
+	return true
 }
 
 const auth = {

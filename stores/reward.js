@@ -1,16 +1,16 @@
 import { defineStore } from 'pinia'
 import request from '@/utils/request'
 
-export const scoreStore = defineStore('score', {
+export const rewardStore = defineStore('reward', {
     state: () => {
         return {}
     },
     getters: {},
     actions: {
-        getScoreList(params) {
+        getRewardList(params) {
             return new Promise((resolve, reject) => {
                 request.send({
-                    url: '/score',
+                    url: '/reward',
                     method: 'GET',
 					data: params,
                     success: (res) => {
@@ -22,10 +22,10 @@ export const scoreStore = defineStore('score', {
                 })
             })
         },
-		scoreExchange(params) {
+		rewardExchange(params) {
 		    return new Promise((resolve, reject) => {
 		        request.send({
-		            url: '/score/exchange',
+		            url: '/reward/exchange',
 		            method: 'POST',
 					data: params,
 		            success: (res) => {

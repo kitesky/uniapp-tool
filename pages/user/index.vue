@@ -1,5 +1,6 @@
 <template>
 	<view>
+		<!-- 用户卡片 -->
 		<view class="bg-user">
 			<view class="d-flex justify-content-between align-items-center px-3 py-3">
 				<view>
@@ -11,7 +12,7 @@
 							<view class="f16 fw-bold">{{user.name}}</view>
 							<view class="d-flex justify-content-start text-secondary mt-2 gap-2 f12">
 								<text>ID:{{user.mmid}} </text>
-								<image @click="copyMMID(user.mmid)" style="width: 14px; height: 14px;" :src="icons.copy"></image>
+								<image @click="copyMMID(user.mmid.toString())" style="width: 14px; height: 14px;" :src="icons.copy"></image>
 							</view>
 						</view>
 					</view>
@@ -27,6 +28,7 @@
 			<view style="height: 90px;"></view>
 		</view>
 
+		<!-- 会员卡片 -->
 		<view class="bg-body-tertiary rounded-3 mx-3" style="margin-top: -90px;">
 			<view class="bg-danger-subtle rounded-5 rounded-top-3">
 				<view>
@@ -60,6 +62,7 @@
 				</view>
 			</view>
 			
+			<!-- 余额和积分 -->
 			<view class="mt-1">
 				<uni-grid :column="3" :highlight="false" :show-border="false" :square="false">
 					<uni-grid-item :index="0">
@@ -92,13 +95,28 @@
 					</uni-grid-item>
 				</uni-grid>
 			</view>
-
 		</view>
 
-		<view class="mt-5 border-top">
+		<!-- 分享有礼 -->
+		<view class="mx-3 my-4 rounded">
+			<navigator animation-type="pop-in" animation-duration="300" url="/pages/user/invite">
+			<view class="d-flex justify-content-between align-items-center rounded p-3" style="background-color: #e8f7ce;">
+				<view class="fs-6">
+					<view class="d-flex justify-content-start align-items-center">
+						<image style="width: 24px; height: 24px;" :src="icons.gift"></image>
+						<text class="ms-1 fw-bold text-secondary">推广有礼</text>
+					</view>
+				</view>
+				<view class="border border-danger text-danger rounded-5 px-2 py-1 f14">立即分享</view>
+			</view>
+			</navigator>
+		</view>
+
+		<!-- 菜单列表 -->
+		<view class="mx-3">
 			<view v-for="(item, index) in navList" :key="'nav' + index">
 				<navigator animation-type="pop-in" animation-duration="300" :url="item.link">
-					<view class="d-flex justify-content-between align-items-center border-bottom p-3">
+					<view class="d-flex justify-content-between align-items-center p-3">
 						<view class="d-flex justify-content-center align-items-center">
 							<image style="width: 22px; height: 22px;" mode="heightFix" :src="item.icon"></image>
 							<view class="ms-2">{{item.title}}</view>
@@ -123,6 +141,7 @@
 			return {
 				icons: config.icons,
 				user: {
+					avatar: '',
 					name: '',
 					score: 0,
 					balance: 0,
@@ -141,10 +160,8 @@
 				],
 			}
 		},
-		beforeCreate() {
+		onShow() {	
 			this.auth.check()
-		},
-		onShow() {
 			this.fetch()
 		},
 		onLoad() {},
@@ -156,13 +173,11 @@
 			...mapActions(userStore, ['userInfo']),
 			fetch() {
 				this.userInfo().then(resp => {
-					this.user = resp.data
+					if (resp.data) {
+						this.user = resp.data
+					}
 					uni.stopPullDownRefresh()
 				})
-			},
-			onclickItem(url) {
-				this.toast.error("1221312")
-				// uni.navigateTo({url:url})
 			},
 			copyMMID(text) {
 				var that = this
@@ -170,6 +185,9 @@
 					data: text,
 					success: function () {
 						that.toast.success('复制成功')
+					},
+					fail(err) {
+						that.toast.error(err.errMsg)
 					}
 				})
 			}

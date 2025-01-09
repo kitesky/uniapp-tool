@@ -1,27 +1,44 @@
 <template>
-	<view class="mx-3 mt-1">
+	<view class="m-3">
 		<view class="bg-danger bg-opacity-100 rounded-4">
-			<uni-grid :column="3" :highlight="false" :show-border="false" :square="false" @change="onGridChange">
+			<uni-grid :column="3" :highlight="false" :show-border="false" :square="false">
 				<uni-grid-item :index="0">
-					<view class="grid-item-content gap-2 py-4 text-white">
-						<view class="f14">积分收益</view>
-						<view class="fs-3 fw-bold">0</view>
+					<navigator animation-type="pop-in" animation-duration="300" url="/pages/user/score">
+					<view class="grid-item-content gap-2 py-3 text-white">
+						<view class="f14">
+							积分收益
+							<uni-icons color="#FFFFFF" type="right" size="14"></uni-icons>
+						</view>
+						<view class="fs-3 fw-bold">
+							{{ user.score }}
+						</view>
+						<!-- <view @click="onScoreExchange" class="f12 border rounded-5 px-2">立即兑换</view> -->
 					</view>
+					</navigator>
 				</uni-grid-item>
 				
 				<uni-grid-item :index="1">
-					<view class="grid-item-content gap-2 py-4 text-white">
-						<view class="f14">现金收益</view>
+					<navigator animation-type="pop-in" animation-duration="300" url="/pages/user/score">
+					<view class="grid-item-content gap-2 py-3 text-white">
+						<view class="f14">
+							奖励金(元)
+							<uni-icons color="#FFFFFF" type="right" size="14"></uni-icons>
+						</view>
 						<view>
 							<text class="text-light">￥</text>
-							<text class="fs-3 fw-bold">0</text>
+							<text class="fs-3 fw-bold">{{ user.reward }}</text>
 						</view>
+						<!-- <view class="f12 border rounded-5 px-2">去提现</view> -->
 					</view>
+					</navigator>
 				</uni-grid-item>
 				
 				<uni-grid-item :index="2">
 					<view class="grid-item-content gap-2 py-4">
-						<button size="mini" type="default" class="bg-white text-black border-0" plain="true">兑换</button>
+						<navigator animation-type="pop-in" animation-duration="300" url="/pages/user/score">
+						<view class="f12 fw-bold bg-light text-dark border rounded-5 px-2 py-1">去提现</view>
+						</navigator>
+						<!-- <view class="text-light f12">10000积分=1元</view> -->
 					</view>
 				</uni-grid-item>
 			</uni-grid>
@@ -48,20 +65,25 @@
 				</view>
 			</view>
 		</view>
-		
 	</view>
 </template>
 
 <script>
 	import {mapActions} from 'pinia'
 	import {taskStore} from '@/stores/task'
+	import {userStore} from '@/stores/user'
 	export default {
 		data() {
 			return {
+				user: {
+					score: 0,
+					balance: 0,
+				},
 				items: [],
 			}
 		},
 		onShow() {
+			this.auth.check()
 			this.fetch()
 		},
 		onLoad() {},
@@ -70,9 +92,7 @@
 		},
 		methods: {
 			...mapActions(taskStore, ['task']),
-			onGridChange() {
-				
-			},
+			...mapActions(userStore, ['userInfo']),
 			onLaunch(item) {
 				if (item.launch_url) {
 					uni.navigateTo({url: item.launch_url});
@@ -82,8 +102,17 @@
 				this.toast.error("任务启动失败")
 			},
 			fetch() {
+				// 查询任务
 				this.task().then(resp => {
 					this.items = resp.data
+					uni.stopPullDownRefresh()
+				})
+				
+				// 查询用户
+				this.userInfo().then(resp => {
+					if (resp.data) {
+						this.user = resp.data
+					}
 					uni.stopPullDownRefresh()
 				})
 			},

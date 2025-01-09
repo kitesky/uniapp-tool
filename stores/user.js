@@ -20,6 +20,21 @@ export const userStore = defineStore('user', {
         increment() {
             this.count++
         },
+        // 获取用户邀请信息
+        userInvite() {
+            return new Promise((resolve, reject) => {
+                request.send({
+                    url: '/user/invite',
+                    method: 'GET',
+                    success: (res) => {
+                        resolve(res.data)
+                    },
+                    fail: (error) => {
+                        reject(error)
+                    }
+                })
+            })
+        },
         // 更新用户信息
         setProfile(params) {
             return new Promise((resolve, reject) => {

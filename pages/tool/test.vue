@@ -17,11 +17,28 @@
 				list: [],
 			}
 		},
-		onLoad() {
+		onLoad(params) {
+			console.log('query params', params)
 			this.fetch()
 		},
 		onPullDownRefresh() {
 			this.fetch()
+		},
+		onShareAppMessage() {
+			return {
+				title: '分享测试',
+				desc: '分享描述',
+				path: encodeURIComponent('pages/tool/test?inviteid=11111'),
+				imageUrl: '',
+			}
+		},
+		onShareTimeline() {
+			return {
+				title: '分享测试',
+				desc: '分享描述',
+				path: encodeURIComponent('pages/tool/test?inviteid=11111'),
+				imageUrl: '',
+			}
 		},
 		methods: {
 			...mapActions(taxonomyStore, ['taxonomy']),

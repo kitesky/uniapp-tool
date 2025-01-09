@@ -64,6 +64,7 @@
 				icons: config.icons,
 				selectIndex: 0,
 				user: {
+					avatar: '',
 					name: '',
 					score: 0,
 					balance: 0,
@@ -94,11 +95,15 @@
 			...mapActions(productStore, ['getProductList']),
 			fetch() {
 				this.userInfo().then(resp => {
-					this.user = resp.data
+					if (resp.data) {
+						this.user = resp.data
+					}
 				})
 				
 				this.getProductList({type: 'vip'}).then(resp => {
-					this.goods = resp.data
+					if (resp.data) {
+						this.goods = resp.data
+					}
 				})
 				
 				uni.stopPullDownRefresh()
@@ -125,7 +130,7 @@
 						provider: 'wxpay',
 						...resp.data,
 						success: function (res) {
-							that.toast.success('充值成功')
+							that.toast.success('会员充值成功')
 							that.fetch()
 						},
 						fail: function (err) {

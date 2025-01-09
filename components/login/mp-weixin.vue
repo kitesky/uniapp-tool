@@ -65,10 +65,13 @@
 							code: loginRes.code,
 							userInfo: userInfo
 						}).then(res => {
-							uni.switchTab({
+							uni.reLaunch({
 								url: '/pages/user/index'
-							})
+							});
 						})
+					},
+					fail(err) {
+						console.log('err', err)
 					},
 					complete: function() {
 						// 关闭loading

@@ -15,10 +15,12 @@
 			<view class="d-flex justify-content-between align-items-center p-3">
 				<view class="fs-5 fw-bold">精选推荐</view>
 				<view class="fs-6">
+					<navigator animation-type="pop-in" animation-duration="300" url="/pages/user/invite">
 					<view class="d-flex justify-content-start align-items-center">
 						<image style="width: 24px; height: 24px;" :src="icons.gift"></image>
 						<text class="ms-1 fw-bold text-secondary">分享有礼</text>
 					</view>
+					</navigator>
 				</view>
 			</view>
 			<view>
@@ -76,11 +78,24 @@
 				items: {}
 			}
 		},
-		onLoad() {
+		onLoad(params) {
+			console.log('query params', params)
 			this.fetch()
 		},
 		onPullDownRefresh() {
 			this.fetch()
+		},
+		onShareAppMessage() {
+			return {
+				title: '分享测试',
+				query: 'inviteid=11111',
+			}
+		},
+		onShareTimeline() {
+			return {
+				title: '分享测试',
+				query: 'inviteid=11111',
+			}
 		},
 		methods: {
 			...mapActions(homeStore, ['homeData']),

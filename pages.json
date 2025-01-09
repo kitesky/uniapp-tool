@@ -9,7 +9,6 @@
 		},
 		{
 			"path": "pages/task/index",
-			"needLogin": true,
 			"style": {
 				"navigationBarTitleText": "任务",
 				"enablePullDownRefresh": true
@@ -17,7 +16,6 @@
 		},
 		{
 			"path": "pages/user/index",
-			"needLogin": true,
 			"style": {
 				"navigationBarTitleText": "个人中心",
 				"enablePullDownRefresh": true
@@ -25,7 +23,6 @@
 		},
 		{
 			"path": "pages/user/profile",
-			"needLogin": true,
 			"style": {
 				"navigationBarTitleText": "个人资料",
 				"enablePullDownRefresh": false
@@ -33,7 +30,6 @@
 		},
 		{
 			"path": "pages/user/recharge",
-			"needLogin": true,
 			"style": {
 				"navigationBarTitleText": "账户充值",
 				"enablePullDownRefresh": false
@@ -41,7 +37,6 @@
 		},
 		{
 			"path": "pages/user/order",
-			"needLogin": true,
 			"style": {
 				"navigationBarTitleText": "我的订单",
 				"enablePullDownRefresh": true
@@ -49,7 +44,6 @@
 		},
 		{
 			"path": "pages/user/balance",
-			"needLogin": true,
 			"style": {
 				"navigationBarTitleText": "账单明细",
 				"enablePullDownRefresh": true
@@ -57,15 +51,13 @@
 		},
 		{
 			"path": "pages/user/score",
-			"needLogin": true,
 			"style": {
-				"navigationBarTitleText": "积分记录",
+				"navigationBarTitleText": "我的收益",
 				"enablePullDownRefresh": true
 			}
 		},
 		{
 			"path": "pages/user/setting",
-			"needLogin": true,
 			"style": {
 				"navigationBarTitleText": "账号设置",
 				"enablePullDownRefresh": true
@@ -122,6 +114,14 @@
 			{
 				"navigationBarTitleText" : "开通会员",
 				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path" : "pages/user/invite",
+			"style" : 
+			{
+				"navigationBarTitleText" : "邀请注册",
+				"enablePullDownRefresh": false
 			}
 		}
 	],

@@ -3,20 +3,18 @@
 		<view class="bg-body-secondary p-3">
 			<view class="mb-1">
 				<text class="text-secondary">当前余额:</text>
-				{{user.balance}} 元
+				<text class="text-danger fw-bold mx-1">{{user.balance}}</text>元
 			</view>
 			<view>
 				<text class="text-secondary">充值账户:</text>
-				{{user.mmid}}
+				<text class="mx-1">{{user.mmid}}</text>
 			</view>
 		</view>
 
 		<view class="mx-3 mt-3">
 			<uni-forms ref="customForm" :rules="customRules" :modelValue="customFormData" label-position="top">
 				<uni-forms-item label="充值金额" required name="amount">
-					<uni-easyinput type="digit" trim="all" v-model="customFormData.amount" placeholder="请输入充值金额">
-						<slot name="prefixIcon">111</slot>
-					</uni-easyinput>
+					<uni-easyinput type="digit" prefixIcon="compose" trim="all" v-model="customFormData.amount" placeholder="请输入充值金额"></uni-easyinput>
 				</uni-forms-item>
 				<!-- <uni-forms-item label="快捷选择" name="option">
 					<uni-data-checkbox v-model="customFormData.option" :localdata="options" />
