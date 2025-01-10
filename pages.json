@@ -123,6 +123,21 @@
 				"navigationBarTitleText" : "邀请注册",
 				"enablePullDownRefresh": false
 			}
+		},
+		{
+			"path" : "pages/activity/activity",
+			"style" : 
+			{
+				"navigationBarTitleText" : "创作记录",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path" : "pages/activity/detail",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
 		}
 	],
 	"globalStyle": {

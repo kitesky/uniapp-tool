@@ -1,0 +1,74 @@
+<template>
+	<view class="bg-color vh-100">
+		<view class="p-3 f14">
+			<view class="bg-light rounded-3 p-3">
+				<view class="my-2" v-for="(item, index) in data.form_schemas" :key="'field-' + index">
+					<text>{{item.title}}:</text>
+					<text class="ms-2 text-secondary">{{item.value}}</text>
+				</view>
+			</view>
+			
+			<view class="mt-3 bg-light rounded-3 p-3">
+				<view class="d-flex justify-content-between align-items-center">
+					<text>内容信息</text>
+					<text @click="copyContent(data.content)" class="f14 rounded-5 border border-danger text-danger px-2 py-1">复制全文</text>
+				</view>
+				<view class="mt-3 text-secondary">
+					<uni-easyinput maxlength="-1" type="textarea" autoHeight v-model="data.content"></uni-easyinput>
+				</view>
+			</view>
+		</view>
+	</view>
+</template>
+
+<script>
+	import {mapActions} from 'pinia'
+	import {activityStore} from '@/stores/activity'
+	export default {
+		data() {
+			return {
+				id: 0,
+				data: {
+					form_schemas: [],
+					content_type: "",
+					content:""
+				}
+			}
+		},
+		onLoad(option) {
+			this.id = option.id
+			this.fetch()
+		},
+		methods: {
+			...mapActions(activityStore, ['getActivity']),
+			fetch() {
+				this.getActivity(this.id).then(resp => {
+					if (resp.data) {
+						this.data = resp.data
+						// 解析json
+						this.data.form_schemas = JSON.parse(this.data.form_schemas)
+					}
+					uni.stopPullDownRefresh()
+				})
+			},
+			copyContent(text) {
+				var that = this
+				uni.setClipboardData({
+					data: text,
+					success: function () {
+						that.toast.success('复制成功')
+					},
+					fail(err) {
+						that.toast.error(err.errMsg)
+					}
+				})
+			}
+		}
+	}
+</script>
+
+<style>
+	.bg-color {
+		background: linear-gradient(to bottom, #d8ebf9 0%, #fff 100%);
+	}
+</style>

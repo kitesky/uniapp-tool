@@ -1,6 +1,6 @@
 // API 地址配置
-const apiUrl = 'https://api.idcd.com/api'
-// const apiUrl = 'http://127.0.0.1:3000/api'
+// const apiUrl = 'https://api.idcd.com/api'
+const apiUrl = 'http://127.0.0.1:3000/api'
 
 // 网络图标资源配置
 const icons = {
@@ -16,6 +16,7 @@ const icons = {
 	send: 'https://api.idcd.com/assets/icons/send.svg',
 	sendFill: 'https://api.idcd.com/assets/icons/send_fill.svg',
 	gift: 'https://api.idcd.com/assets/icons/gift.svg',
+	activity: 'https://api.idcd.com/assets/icons/activity.svg',
 }
 
 export default {

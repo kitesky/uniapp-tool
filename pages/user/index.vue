@@ -152,6 +152,7 @@
 					}
 				},
 				navList: [
+					{title: "创作记录", icon: config.icons.activity, link: "/pages/activity/activity", text: ""},
 					{title: "订单列表", icon: config.icons.cart, link: "/pages/user/order", text: ""},
 					{title: "账单明细", icon: config.icons.balance, link: "/pages/user/balance", text: ""},
 					{title: "积分记录", icon: config.icons.score, link: "/pages/user/score", text: ""},
