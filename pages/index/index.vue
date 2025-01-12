@@ -1,9 +1,9 @@
 <template>
 	<view>
 		<view class="uni-margin-wrap">
-			<swiper :current="currIndex" @change="changeSwiper" :style="{ height: swiperHeight + 'px' }" class="swiper" circular :indicator-dots="false" :autoplay="true" interval="2000" duration="300">
+			<swiper class="swiper" circular :indicator-dots="false" :autoplay="true" interval="2000" duration="300">
 				<swiper-item v-for="(item,index) in items.swiper" :key="'swiper-' + index">
-					<image :id="'wrap' + index" mode="widthFix" class="w-100" :src="item.image"></image>
+					<image mode="widthFix" class="w-100" :src="item.image"></image>
 				</swiper-item>
 			</swiper>
 		</view>
@@ -64,8 +64,9 @@
 </template>
 
 <script>
-	import {mapActions} from 'pinia'
+	import {mapActions, mapState} from 'pinia'
 	import {homeStore} from '@/stores/home'
+	import {userStore} from '@/stores/user'
 	import Search from '@/components/search'
 	import config from '@/utils/config'
 	export default {
@@ -74,37 +75,38 @@
 		},
 		data() {
 			return {
-				currIndex: 0, // 当前索引
-				swiperHeight: 0, // 滑块的高度(单位px)
 				icons: config.icons,
-				items: {}
+				items: {},
+				mmid : null,
 			}
 		},
-		onLoad(params) {
-			this.$nextTick(() => {
-				this.setSwiperHeight(); // 动态设置 swiper 的高度
-			});
-			
-			console.log('query params', params)
+		onLoad(option) {
+			// 自己的mmidd
+			this.mmid = this.getUserMMID()
+			// 别人分享的mmid
+			this.setInviteID(option.invite_id)
 			this.fetch()
+			console.log('query option', option, 'mmid', this.mmid)
 		},
 		onPullDownRefresh() {
 			this.fetch()
 		},
 		onShareAppMessage() {
 			return {
-				title: '分享测试',
-				query: 'inviteid=11111',
+				title: '美智合AI',
+				path: '/pages/index/index?invite_id=' + this.mmid,
 			}
 		},
 		onShareTimeline() {
 			return {
-				title: '分享测试',
-				query: 'inviteid=11111',
+				title: '美智合AI',
+				query: 'invite_id=' + this.mmid ,
 			}
 		},
 		methods: {
 			...mapActions(homeStore, ['homeData']),
+			...mapActions(userStore, ['setInviteID']),
+			...mapState(userStore, ['getUserMMID']),
 			fetch() {
 				this.homeData().then(resp => {
 					this.items = resp.data
@@ -122,22 +124,6 @@
 					url: '/pages/category/index'
 				});
 			},
-			/* 切换 swiper 滑块 */
-			changeSwiper(e) {
-				this.currIndex = e.detail.current;
-				this.$nextTick(() => {
-					this.setSwiperHeight(); // 动态设置 swiper 的高度
-				});
-			},
-			/* 动态设置 swiper 的高度 */
-			setSwiperHeight() {
-				const element = "#wrap" + this.currIndex;
-				const query = uni.createSelectorQuery().in(this);
-				query.select(element).boundingClientRect();
-				query.exec(res => {
-					if (res && res[0]) this.swiperHeight = res[0].height;
-				});
-			}
 		},
 	}
 </script>

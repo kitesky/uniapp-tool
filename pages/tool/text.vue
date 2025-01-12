@@ -31,7 +31,8 @@
 </template>
 
 <script>
-	import {mapActions} from 'pinia'
+	import {mapActions, mapState} from 'pinia'
+	import {userStore} from '@/stores/user'
 	import {toolStore} from '@/stores/tool'
 	export default {
 		components: {},
@@ -53,42 +54,45 @@
 					// 	}]
 					// },
 				},
+				mmid: null,
 			}
 		},
-		onReady() {
-			uni.setNavigationBarTitle({
-				title: this.title
-			});
-		},
 		onLoad(option) {
+			// 自己的mmidd
+			this.mmid = this.getUserMMID()
+			// 别人分享的mmid
+			this.setInviteID(option.invite_id)
+			
 			this.id = option.id
 			this.fetch()
+			console.log('query option', option, 'mmid', this.mmid)
 		},
 		onShareAppMessage() {
 			return {
-				title: '分享测试',
+				title: this.title,
+				path: '/pages/tool/text?id=' + this.id + '&invite_id=' + this.mmid,
 			}
 		},
 		onShareTimeline() {
 			return {
-				title: '分享测试',
+				title:  this.title,
+				query: 'id=' + this.id + '&invite_id=' + this.mmid ,
 			}
 		},
 		methods: {
 			...mapActions(toolStore, ['getTool', 'toolHandler']),
+			...mapActions(userStore, ['setInviteID']),
+			...mapState(userStore, ['getUserMMID']),
 			fetch() {
 				this.getTool(this.id).then(resp => {
 					this.data = resp.data
 					this.title = resp.data.title
-					this.setCustomRules(resp.data.form_schemas)
+					uni.setNavigationBarTitle({ title: this.title })
+					this.setCustomData(resp.data.form_schemas)
 					uni.stopPullDownRefresh()
 				})
 			},
-			setDefaultValue(form_schemas) {
-				var customFormData = {}
-				
-			},
-			setCustomRules(form_schemas) {
+			setCustomData(form_schemas) {
 				if (form_schemas.length > 0) {
 					var customRules = {}
 					var customFormData = {}

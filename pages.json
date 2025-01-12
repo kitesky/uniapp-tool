@@ -136,7 +136,7 @@
 			"path" : "pages/activity/detail",
 			"style" : 
 			{
-				"navigationBarTitleText" : ""
+				"navigationBarTitleText" : "记录详情"
 			}
 		},
 		{

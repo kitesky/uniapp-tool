@@ -18,12 +18,12 @@
 
 			<view>
 				<view class="d-flex flex-column text-center gap-3 border py-3">
-					<view>
+					<view @click="showDrawer('showLeft')">
 						<view class="fw-bold mb-2">
 							已邀请人数
 						</view>
 						<view class="fs-3 fw-bolder text-danger">
-							{{ invite.count }}
+							<text class="text-decoration-underline">{{ invite.count }}</text>
 						</view>
 					</view>
 
@@ -51,6 +51,25 @@
 				</view>
 			</view>
 		</view>
+		
+		<!-- 左侧抽屉 -->
+		<uni-drawer ref="showLeft" mode="left" @change="change($event,'showLeft')">
+			<view class="close">
+				<button @click="closeDrawer('showLeft')"><text class="word-btn-white">关闭</text></button>
+			</view>
+			
+			<view>
+				<uni-list>
+					<uni-list-item 
+						v-for="(item,index) in invite.user_list" :key="'invite-' + index" 
+						:title="item.name" 
+						:note="item.mmid"
+						:thumb="item.avatar"
+						thumb-size="lg"
+					/>
+				</uni-list>
+			</view>
+		</uni-drawer>
 	</view>
 </template>
 
@@ -68,7 +87,8 @@
 					invite_qrcode: '',
 					user_list: [],
 					reward_list: [],
-				}
+				},
+				left: false,
 			};
 		},
 		onLoad() {
@@ -94,7 +114,15 @@
 						that.toast.error(err.errMsg)
 					}
 				})
-			}
+			},
+			// 打开窗口
+			showDrawer(e) {
+				this.$refs[e].open()
+			},
+			// 关闭窗口
+			closeDrawer(e) {
+				this.$refs[e].close()
+			},
 		},
 	}
 </script>

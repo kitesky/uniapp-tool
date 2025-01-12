@@ -40,8 +40,9 @@
 </template>
 
 <script>
-	import {mapActions} from 'pinia'
+	import {mapActions, mapState} from 'pinia'
 	import {taxonomyStore} from '@/stores/taxonomy'
+	import {userStore} from '@/stores/user'
 	import Search from '@/components/search';
 	export default {
 		components: {
@@ -52,10 +53,16 @@
 				items: [],
 				selectIndex: 0,
 				list: [],
+				mmid: null,
 			}
 		},
-		onLoad() {
+		onLoad(option) {
+			// 自己的mmidd
+			this.mmid = this.getUserMMID()
+			// 别人分享的mmid
+			this.setInviteID(option.invite_id)
 			this.fetch()
+			console.log('query option', option, 'mmid', this.mmid)
 		},
 		onShow() {
 			var selectIndex = uni.getStorageSync('selectIndex')
@@ -64,8 +71,22 @@
 				this.onTabClick(selectIndex)
 			}
 		},
+		onShareAppMessage() {
+			return {
+				title: '分类 - 美智合AI',
+				path: '/pages/category/index?invite_id=' + this.mmid,
+			}
+		},
+		onShareTimeline() {
+			return {
+				title: '分类 - 美智合AI',
+				query: 'invite_id=' + this.mmid ,
+			}
+		},
 		methods: {
 			...mapActions(taxonomyStore, ['taxonomy']),
+			...mapActions(userStore, ['setInviteID']),
+			...mapState(userStore, ['getUserMMID']),
 			fetch() {
 				this.taxonomy().then(resp => {
 					this.items = resp.data

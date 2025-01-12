@@ -20,8 +20,8 @@
 </template>
 
 <script>
-	import { mapActions } from 'pinia'
-	import { userStore } from '@/stores/user'
+	import {mapActions, mapState} from 'pinia'
+	import {userStore} from '@/stores/user'
 	export default {
 		name: 'MPWexinLogin',
 		data() {
@@ -31,6 +31,7 @@
 		},
 		methods: {
 			...mapActions(userStore, ['wxLogin']),
+			...mapState(userStore, ['getUserMMID']),
 			onChangeCheckbox(e) {
 				if (e.detail.value) {
 					this.checkedValue = parseInt(e.detail.value[0])
@@ -65,6 +66,7 @@
 							code: loginRes.code,
 							avatar_url: userInfo.avatarUrl,
 							nick_name: userInfo.nickName,
+							invite_id: that.getUserMMID()
 						}).then(res => {
 							uni.reLaunch({
 								url: '/pages/user/index'

@@ -1,6 +1,6 @@
 <template>
 	<view class="bg-color vh-100">
-		<view class="p-3 f14">
+		<view class="p-3">
 			<view class="bg-body-tertiary rounded-3 p-3">
 				<view class="my-2" v-for="(item, index) in data.form_schemas" :key="'field-' + index">
 					<text>{{item.title}}:</text>
@@ -10,7 +10,7 @@
 			
 			<view class="mt-3 bg-body-tertiary rounded-3 p-3">
 				<view class="d-flex justify-content-between align-items-center">
-					<text>内容信息</text>
+					<text class="fw-bold">内容信息</text>
 					<text @click="copyContent(data.content)" class="f14 rounded-5 border border-danger text-danger px-2 py-1">复制全文</text>
 				</view>
 				<view class="mt-3 text-secondary">

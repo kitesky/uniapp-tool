@@ -12,14 +12,25 @@ export const userStore = defineStore('user', {
         getToken() {
             return uni.getStorageSync('token')
         },
-        user() {
+        getUserInfo() {
             return uni.getStorageSync('user')
-        }
+        },
+		getUserMMID() {
+			var user = this.getUserInfo
+			if (user) {
+				return user.mmid
+			}
+			
+			return null
+		}
     },
     actions: {
-        increment() {
-            this.count++
-        },
+		// 存储邀请人ID
+		setInviteID(inviteID) {
+			if (inviteID) {
+				uni.setStorageSync('invite_id', inviteID)
+			}
+		},
         // 获取用户邀请信息
         userInvite() {
             return new Promise((resolve, reject) => {
