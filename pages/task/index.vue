@@ -60,7 +60,9 @@
 						</view>
 					</view>
 					<view>
-						<button @click="onLaunch(item)" class="rounded-5 btn-launch" :disabled="item.completed == 'Y'" size="mini" type="warn">{{item.launch_title}}</button>
+						<button @click="onLaunch(item)" class="rounded-5 btn-launch" :disabled="item.completed == 'Y'" size="mini" type="warn">
+						{{item.completed == 'Y' ? item.completed_title : item.launch_title}}
+						</button>
 					</view>
 				</view>
 			</view>
@@ -95,11 +97,35 @@
 			...mapActions(userStore, ['userInfo']),
 			onLaunch(item) {
 				if (item.launch_url) {
-					uni.navigateTo({url: item.launch_url});
-					return
+					switch (item.launch_type) {
+						case 'navigateTo':
+							uni.navigateTo({url: item.launch_url});
+							break;
+						case 'redirectTo':
+							uni.redirectTo({url: item.launch_url});
+							break;
+						case 'reLaunch':
+							uni.reLaunch({url: item.launch_url});
+							break;
+						case 'switchTab':
+							uni.switchTab({url: item.launch_url});
+							break;
+						case 'request':
+							request.send({
+							    url: item.launch_url,
+							    method: 'GET',
+							    success: (res) => {
+							        resp = res.data
+									this.toast.info(resp.message)
+							    },
+							    fail: (error) => {
+							        console.log(error)
+									this.toast.error('请求失败')
+							    }
+							})
+							break;
+					}
 				}
-				
-				this.toast.error("任务启动失败")
 			},
 			fetch() {
 				// 查询任务

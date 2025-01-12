@@ -2,7 +2,7 @@ import App from './App'
 import * as Pinia from 'pinia'
 import auth from '@/utils/auth'
 import toast from '@/utils/toast'
-import '@/utils/interceptor.js'
+// import '@/utils/interceptor.js'
 import { createSSRApp } from 'vue'
 
 export function createApp() {

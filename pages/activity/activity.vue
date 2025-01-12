@@ -5,7 +5,7 @@
 		<view
 			v-for="(item, index) in items" :key="'order-' + index"
 		>
-			<navigator animation-type="pop-in" animation-duration="300" :url="'/pages/activity/detail?id=' + item.id">
+			<navigator animation-type="pop-in" animation-duration="300" :url="'/pages/activity/detail?uuid=' + item.uuid">
 				<view class="d-flex justify-content-between align-items-baseline px-3 py-3 border-bottom">
 					<view>
 						<view class="mb-2">{{item.title}}</view>
@@ -47,7 +47,7 @@ export default {
 				{ id: 3, name: '失败', disabled: false },
 				{ id: 4, name: '已退费', disabled: false }
 			],
-			statusOptions : ['all', 'pending', 'success', 'fail', 'refunded'],
+			statusOptions : ['all', 'success', 'pending', 'fail', 'refunded'],
 			current: 0,
 			items: [],
 			params: {'status': 'all','page': 1,'page_size': 10},

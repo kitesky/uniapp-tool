@@ -51,7 +51,7 @@
 			<view class="d-flex justify-content-start align-items-center bg-body-tertiary rounded-2 p-2 mt-2">
 				<image style="width: 40px; height: 40px;" mode="heightFix" :src="item.icon"></image>
 				<view class="ms-2">
-					<view class="fw-bold f16">{{item.name}}</view>
+					<view class="fw-bold f16">{{item.title}}</view>
 					<view class="text-body-secondary mt-1 f12">{{item.description}}</view>
 				</view>
 			</view>
@@ -148,7 +148,7 @@
             },
 			onToolClick(item) {
 				uni.navigateTo({
-					url: item.url
+					url: item.url + '?id=' + item.id
 				});
 			}
         }

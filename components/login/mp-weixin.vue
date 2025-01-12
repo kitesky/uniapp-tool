@@ -63,7 +63,8 @@
 						console.log('loginRes', loginRes)
 						that.wxLogin({
 							code: loginRes.code,
-							userInfo: userInfo
+							avatar_url: userInfo.avatarUrl,
+							nick_name: userInfo.nickName,
 						}).then(res => {
 							uni.reLaunch({
 								url: '/pages/user/index'

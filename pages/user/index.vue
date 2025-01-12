@@ -30,7 +30,7 @@
 
 		<!-- 会员卡片 -->
 		<view class="bg-body-tertiary rounded-3 mx-3" style="margin-top: -90px;">
-			<view class="bg-danger-subtle rounded-5 rounded-top-3">
+			<view class="bg-danger-subtle rounded-top-3">
 				<view>
 					<view class="hstack justify-content-between bg-danger rounded-top-3 py-2 px-3">
 						<view>

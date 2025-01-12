@@ -1,14 +1,14 @@
 <template>
 	<view class="bg-color vh-100">
 		<view class="p-3 f14">
-			<view class="bg-light rounded-3 p-3">
+			<view class="bg-body-tertiary rounded-3 p-3">
 				<view class="my-2" v-for="(item, index) in data.form_schemas" :key="'field-' + index">
 					<text>{{item.title}}:</text>
 					<text class="ms-2 text-secondary">{{item.value}}</text>
 				</view>
 			</view>
 			
-			<view class="mt-3 bg-light rounded-3 p-3">
+			<view class="mt-3 bg-body-tertiary rounded-3 p-3">
 				<view class="d-flex justify-content-between align-items-center">
 					<text>内容信息</text>
 					<text @click="copyContent(data.content)" class="f14 rounded-5 border border-danger text-danger px-2 py-1">复制全文</text>
@@ -27,7 +27,7 @@
 	export default {
 		data() {
 			return {
-				id: 0,
+				uuid: "",
 				data: {
 					form_schemas: [],
 					content_type: "",
@@ -36,13 +36,13 @@
 			}
 		},
 		onLoad(option) {
-			this.id = option.id
+			this.uuid = option.uuid
 			this.fetch()
 		},
 		methods: {
 			...mapActions(activityStore, ['getActivity']),
 			fetch() {
-				this.getActivity(this.id).then(resp => {
+				this.getActivity(this.uuid).then(resp => {
 					if (resp.data) {
 						this.data = resp.data
 						// 解析json

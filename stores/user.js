@@ -55,12 +55,14 @@ export const userStore = defineStore('user', {
         wxLogin(params) {
             return new Promise((resolve, reject) => {
                 request.send({
-                    url: '/wechat/login',
+                    url: '/user/sign-in-with-wechat-miniapp',
                     method: 'POST',
                     data: params,
                     success: (res) => {
-                        uni.setStorageSync('token',  res.data.data.access_token)
-                        resolve(res.data)
+						if (res.data.code == 200) {
+							uni.setStorageSync('token',  res.data.data.access_token)
+							resolve(res.data)
+						}
                     },
                     fail: (error) => {
                         reject(error)
@@ -76,8 +78,10 @@ export const userStore = defineStore('user', {
                     method: 'GET',
                     data: params,
                     success: (res) => {
-                        uni.setStorageSync('user',  res.data.data)
-                        resolve(res.data)
+						if (res.data.code == 200) {
+							uni.setStorageSync('user',  res.data.data)
+							resolve(res.data)
+						}
                     },
                     fail: (error) => {
                         reject(error)

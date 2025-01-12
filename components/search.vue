@@ -16,7 +16,6 @@
 		},
 		methods: {
 			onSearchFocus() {
-				console.log(1111)
 				uni.navigateTo({
 					url: '/pages/search/search'
 				});

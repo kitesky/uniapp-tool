@@ -17,13 +17,14 @@
 		<!-- 产品 -->
 		<view class="mt-3 mx-3">
 			<view class="fs-6 fw-bold mb-3">会员开通方案</view>
-			<uni-grid :column="goods.length" :highlight="true" :show-border="true" borderColor="#AAAAAA" :square="false" @change="onChange">
+			<uni-grid :column="Math.floor(goods.length / 2)" :highlight="true" :show-border="true" borderColor="#f8f9fa" :square="false" @change="onChange">
 				<uni-grid-item v-if="goods.length > 0" :index="index" v-for="(item,index) in goods" :key="'good-' + index">
 					<view :class="selectIndex == index ? 'bg-danger-subtle p-3 text-center' : 'p-3 text-center' ">
 						<view>{{item.title}}</view>
 						<view class="mt-3">
-							<text class="text-secondary">￥</text>
-							<text class="fs-3">{{item.price}}</text>
+							<text class="f12 text-secondary">￥</text>
+							<text class="fs-3 text-danger">{{item.price}}</text>
+							<text class="fs-5 ms-2 text-secondary text-decoration-line-through">{{item.market_price}}</text>
 						</view>
 					</view>
 				</uni-grid-item>

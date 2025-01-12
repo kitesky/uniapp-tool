@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia'
+ import { defineStore } from 'pinia'
 import request from '@/utils/request'
 
 export const toolStore = defineStore('tool', {
@@ -27,6 +27,21 @@ export const toolStore = defineStore('tool', {
 		        request.send({
 		            url: '/tool/' + id,
 		            method: 'GET',
+		            success: (res) => {
+		                resolve(res.data)
+		            },
+		            fail: (error) => {
+		                reject(error)
+		            }
+		        })
+		    })
+		},
+		toolHandler(params) {
+		    return new Promise((resolve, reject) => {
+		        request.send({
+		            url: '/tool/handler',
+		            method: 'POST',
+					data: params,
 		            success: (res) => {
 		                resolve(res.data)
 		            },

@@ -1,9 +1,9 @@
 <template>
 	<view>
 		<view class="uni-margin-wrap">
-			<swiper class="swiper" circular :indicator-dots="false" :autoplay="true" interval="2000" duration="300">
+			<swiper :current="currIndex" @change="changeSwiper" :style="{ height: swiperHeight + 'px' }" class="swiper" circular :indicator-dots="false" :autoplay="true" interval="2000" duration="300">
 				<swiper-item v-for="(item,index) in items.swiper" :key="'swiper-' + index">
-					<image mode="widthFix" class="w-100" :src="item.image"></image>
+					<image :id="'wrap' + index" mode="widthFix" class="w-100" :src="item.image"></image>
 				</swiper-item>
 			</swiper>
 		</view>
@@ -29,7 +29,7 @@
 						<view @click="onToolClick(item)" class="bg-body-secondary bg-opacity-75 rounded-3 m-2 p-3">
 							<view class="d-flex justify-content-start align-items-center">
 								<image style="width: 24px; height: 24px;" mode="heightFix" :src="item.icon"></image>
-								<text class="fw-bold ms-2">快捷写作</text>
+								<text class="fw-bold ms-2">{{item.title}}</text>
 							</view>
 							<view class="gray mt-2 f12">{{item.description}}</view>
 						</view>
@@ -41,7 +41,7 @@
 		<!-- 分类循环列表 -->
 		<view class="rounded-3 mx-2 my-4 p-2" v-for="(v,i) in items.taxonomy" :key="'taxonomy-' + i" :style="{backgroundColor: v.meta.bg_color}">
 			<view class="d-flex justify-content-between align-items-center p-2">
-				<view class="fs-5 fw-bold lable">{{v.name}}</view>
+				<view class="fs-5 fw-bold lable">{{v.title}}</view>
 				<view @click="onViewMoreClick(i)" class="text-secondary">
 					查看更多<uni-icons color="6c757d" type="right" size="16"></uni-icons>
 				</view>
@@ -50,7 +50,7 @@
 				<uni-grid-item v-for="(vv,ii) in v.items" :key="'tool-' + ii">
 					<view @click="onToolClick(vv)" class="bg-light rounded-3 m-2 p-2">
 						<view class="d-flex justify-content-between align-items-center">
-							<text class="fw-bold ms-2">{{vv.name}}</text>
+							<text class="fw-bold">{{vv.title}}</text>
 							<image style="width: 24px; height: 24px;" mode="heightFix" :src="vv.icon"></image>
 						</view>
 						<view class="gray mt-2 f12">{{vv.description}}</view>
@@ -74,11 +74,17 @@
 		},
 		data() {
 			return {
+				currIndex: 0, // 当前索引
+				swiperHeight: 0, // 滑块的高度(单位px)
 				icons: config.icons,
 				items: {}
 			}
 		},
 		onLoad(params) {
+			this.$nextTick(() => {
+				this.setSwiperHeight(); // 动态设置 swiper 的高度
+			});
+			
 			console.log('query params', params)
 			this.fetch()
 		},
@@ -107,7 +113,7 @@
 			},
 			onToolClick(item) {
 				uni.navigateTo({
-					url: item.url
+					url: item.url + '?id=' + item.id
 				});
 			},
 			onViewMoreClick(index) {
@@ -115,8 +121,24 @@
 				uni.switchTab({
 					url: '/pages/category/index'
 				});
+			},
+			/* 切换 swiper 滑块 */
+			changeSwiper(e) {
+				this.currIndex = e.detail.current;
+				this.$nextTick(() => {
+					this.setSwiperHeight(); // 动态设置 swiper 的高度
+				});
+			},
+			/* 动态设置 swiper 的高度 */
+			setSwiperHeight() {
+				const element = "#wrap" + this.currIndex;
+				const query = uni.createSelectorQuery().in(this);
+				query.select(element).boundingClientRect();
+				query.exec(res => {
+					if (res && res[0]) this.swiperHeight = res[0].height;
+				});
 			}
-		}
+		},
 	}
 </script>
 
