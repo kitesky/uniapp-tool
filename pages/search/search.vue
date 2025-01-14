@@ -17,27 +17,27 @@
     <view v-if="search == false" class="p-3">
 		<view class="mb-3">
 			<view class="d-flex justify-content-start align-items-center">
-				<view class="fw-bold lable">历史搜索</view>
-				<uni-icons @click="clearHistoryData" type="trash" size="22"></uni-icons>
+				<view class="fw-bold lable">热门搜索</view>
 			</view>
 			
-			<view class="search-content gap-3 mt-3">
-			    <template v-for="(item, index) in history" :key="index">
-			        <text @click="onClickKeywords(item)" class="bg-body-secondary rounded-3 py-2 px-3">{{ item }}</text>
-			    </template>
-			</view>
+            <view class="search-content gap-3 mt-3 f14">
+                <template v-for="(item, index) in hot" :key="index">
+                    <text @click="onClickKeywords(item)" class="bg-body-secondary rounded-3 p-2 me-2">{{ item }}</text>
+                </template>
+            </view>
 		</view>
 		
 		<view class="mb-3">
 			<view class="d-flex justify-content-start align-items-center">
-				<view class="fw-bold lable">热门搜索</view>
+				<view class="fw-bold lable">历史搜索</view>
+				<uni-icons @click="clearHistoryData" type="trash" size="22"></uni-icons>
 			</view>
 			
-            <view class="search-content gap-3 mt-3">
-                <template v-for="(item, index) in hot" :key="index">
-                    <text @click="onClickKeywords(item)" class="bg-body-secondary rounded-3 py-2 px-3 me-2">{{ item }}</text>
-                </template>
-            </view>
+			<view class="search-content gap-3 mt-3 f14">
+			    <template v-for="(item, index) in history" :key="index">
+			        <text @click="onClickKeywords(item)" class="bg-body-secondary rounded-3 p-2">{{ item }}</text>
+			    </template>
+			</view>
 		</view>
     </view>
 	
@@ -49,7 +49,9 @@
 			@click="onToolClick(item)"
 		>
 			<view class="d-flex justify-content-start align-items-center bg-body-tertiary rounded-2 p-2 mt-2">
-				<image style="width: 40px; height: 40px;" mode="heightFix" :src="item.icon"></image>
+				<view style="width: 50px;">
+					<image style="width: 50px; height: 50px;" mode="widthFix" :src="item.icon"></image>
+				</view>
 				<view class="ms-2">
 					<view class="fw-bold f16">{{item.title}}</view>
 					<view class="text-body-secondary mt-1 f12">{{item.description}}</view>
@@ -62,6 +64,7 @@
 <script>
     import { mapActions } from 'pinia'
 	import {toolStore} from '@/stores/tool'
+	import {searchStore} from '@/stores/search'
     export default {
         components: {
         },
@@ -84,13 +87,20 @@
         },
         methods: {
 			...mapActions(toolStore, ['getToolList']),
+			...mapActions(searchStore, ['getSearchList']),
 			fetch() {
 				this.getToolList(this.params).then(resp => {
 					this.items = resp.data.items
 				})
 			},
             fetchHotSearch() {
-                var that = this
+				this.getSearchList().then(resp => {
+					if (resp.data) {
+						resp.data.forEach(item => {
+							this.hot.push(item.title)
+						})
+					}
+				})
             },
             onSearch() {
                 this.search = true

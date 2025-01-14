@@ -22,13 +22,14 @@
 							v-for="(item, index) in list" 
 							:key="'tool' + index" 
 							class="px-3 mb-3"
-							@click="onToolClick(item)"
 						>
-							<view class="d-flex justify-content-start align-items-center bg-body-tertiary rounded-2 p-2 mt-2">
-								<image style="width: 50px; height: 50px;" mode="heightFix" :src="item.icon"></image>
+							<view @click="onToolClick(item)" class="d-flex justify-content-start align-items-center bg-body-tertiary rounded-2 p-2 mt-2">
+								<view style="width: 40px;">
+									<image style="width: 40px; height: 40px;" mode="widthFix" :src="item.icon"></image>
+								</view>
 								<view class="ms-2">
 									<view class="fw-bold f16">{{item.title}}</view>
-									<view class="text-body-secondary mt-1 f12">{{item.description}}</view>
+									<view class="mt-1 f12 text-secondary">{{item.description}}</view>
 								</view>
 							</view>
 						</view>

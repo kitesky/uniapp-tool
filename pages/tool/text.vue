@@ -6,9 +6,10 @@
 					<template v-for="(item,index) in data.form_schemas" :key="'input-' + index">
 						<uni-forms-item label-width="100%" :label="item.title" :required="item.required" :name="item.name">
 							<uni-easyinput v-if="item.field_type == 'input'" type="text" trim="all" v-model="customFormData[item.name]" :placeholder="item.placeholder"></uni-easyinput>
-							<uni-number-box  v-if="item.field_type == 'number'" v-model="customFormData[item.name]" :min="100" :max="5000" :step="100"></uni-number-box>
+							<uni-number-box  v-if="item.field_type == 'number'" v-model="customFormData[item.name]" :min="1" :max="5000" :step="1"></uni-number-box>
 							<uni-easyinput v-if="item.field_type == 'textarea'" type="textarea" autoHeight trim="all" v-model="customFormData[item.name]" :placeholder="item.placeholder"></uni-easyinput>
 							<uni-data-select v-if="item.field_type == 'select'" v-model="customFormData[item.name]" :localdata="item.options" :label="item.title"></uni-data-select>
+							<uni-data-checkbox v-if="item.field_type == 'radio'" v-model="customFormData[item.name]" :localdata="item.options" :label="item.title"></uni-data-checkbox>
 						</uni-forms-item>
 					</template>
 				</uni-forms>

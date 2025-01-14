@@ -16,9 +16,9 @@
 				<view class="fs-5 fw-bold">精选推荐</view>
 				<view class="fs-6">
 					<navigator animation-type="pop-in" animation-duration="300" url="/pages/user/invite">
-					<view class="d-flex justify-content-start align-items-center">
+					<view class="d-flex justify-content-start align-items-center gap-1 px-1">
 						<image style="width: 24px; height: 24px;" :src="icons.gift"></image>
-						<text class="ms-1 fw-bold text-secondary">分享有礼</text>
+						<text class="fw-bold text-secondary">分享有礼</text>
 					</view>
 					</navigator>
 				</view>
@@ -28,10 +28,10 @@
 					<uni-grid-item v-for="(item,index) in items.recommend" :key="'recommend-' + index">
 						<view @click="onToolClick(item)" class="bg-body-secondary bg-opacity-75 rounded-3 m-2 p-3">
 							<view class="d-flex justify-content-start align-items-center">
-								<image style="width: 24px; height: 24px;" mode="heightFix" :src="item.icon"></image>
+								<image style="width: 24px; height: 24px;" :src="item.icon"></image>
 								<text class="fw-bold ms-2">{{item.title}}</text>
 							</view>
-							<view class="gray mt-2 f12">{{item.description}}</view>
+							<view class="mt-2 f12 text-secondary">{{item.description}}</view>
 						</view>
 					</uni-grid-item>
 				</uni-grid>
@@ -51,15 +51,15 @@
 					<view @click="onToolClick(vv)" class="bg-light rounded-3 m-2 p-2">
 						<view class="d-flex justify-content-between align-items-center">
 							<text class="fw-bold">{{vv.title}}</text>
-							<image style="width: 24px; height: 24px;" mode="heightFix" :src="vv.icon"></image>
+							<image style="width: 24px; height: 24px;" :src="vv.icon"></image>
 						</view>
-						<view class="gray mt-2 f12">{{vv.description}}</view>
+						<view class="mt-2 f12 text-secondary">{{vv.description}}</view>
 					</view>
 				</uni-grid-item>
 			</uni-grid>	
 		</view>
 		
-		<!-- <view class="bottom-margin"></view> -->
+		<view class="bottom-margin"></view>
 	</view>
 </template>
 
@@ -81,6 +81,9 @@
 			}
 		},
 		onLoad(option) {
+			// 微信场景二维码
+			this.getQueryParams(option.scene)
+
 			// 自己的mmidd
 			this.mmid = this.getUserMMID()
 			// 别人分享的mmid
@@ -124,6 +127,24 @@
 					url: '/pages/category/index'
 				});
 			},
+			getQueryParams(scene) {
+			    let params = {
+					invite_id: ""
+				};
+				if (scene) {
+					scene = decodeURIComponent(scene)
+					// 分割查询字符串并解析
+					scene.split('&').forEach(function(pair) {
+						let [key, value] = pair.split('=');
+						params[decodeURIComponent(key)] = decodeURIComponent(value || '');
+					});
+				}
+				
+				if (params.invite_id) {
+					this.setInviteID(params.invite_id)
+				}
+			    return params;
+			}
 		},
 	}
 </script>
@@ -133,7 +154,7 @@
 		border-bottom: 0 !important;
 	}
 	.bottom-margin {
-		height: 30px;
+		height: 10px;
 	}
 	.lable::before {
 		display: inline-block;

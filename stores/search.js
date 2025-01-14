@@ -1,16 +1,16 @@
 import { defineStore } from 'pinia'
 import request from '../utils/request'
 
-export const homeStore = defineStore('home', {
+export const searchStore = defineStore('search', {
     state: () => {
         return {}
     },
     getters: {},
     actions: {
-        homeData() {
+        getSearchList() {
             return new Promise((resolve, reject) => {
                 request.send({
-                    url: '/home',
+                    url: '/search',
                     method: 'GET',
                     success: (res) => {
                         resolve(res.data)

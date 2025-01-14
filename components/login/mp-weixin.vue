@@ -1,12 +1,12 @@
 <template>
 	<uni-card class="text-center">
-		<view class="mb-3">
-			<image mode="heightFix" style="height: 100px;" src="/static/logo.png"></image>
+		<view class="my-3">
+			<image mode="heightFix" style="height: 80px;" src="/static/logo.png"></image>
 		</view>
 
 		<view class="p-3">
 			<button @click="getUserProfile" type="default">微信一键登录</button>
-			<view style="font-size:14px;color: #999;margin-top: 10px;">
+			<!-- <view style="font-size:14px;color: #999;margin-top: 10px;">
 				<checkbox-group @change="onChangeCheckbox">
 					<label>
 						<checkbox :checked="checked" value="1" color="#00c800"
@@ -14,7 +14,7 @@
 					</label>
 					<text @click="onClickAgree" style="color:#00c800">《服务协议声明》</text>
 				</checkbox-group>
-			</view>
+			</view> -->
 		</view>
 	</uni-card>
 </template>
@@ -40,10 +40,10 @@
 			getUserProfile() {
 				var that = this
 
-				if (that.checkedValue != 1) {
-					that.toast.error('请同意服务协议')
-					return false
-				}
+				// if (that.checkedValue != 1) {
+				// 	that.toast.error('请同意服务协议')
+				// 	return false
+				// }
 
 				uni.getUserProfile({
 					desc: '用于完善会员资料',

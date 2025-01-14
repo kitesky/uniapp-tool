@@ -20,7 +20,7 @@
 			<uni-grid :column="Math.floor(goods.length / 2)" :highlight="true" :show-border="true" borderColor="#f8f9fa" :square="false" @change="onChange">
 				<uni-grid-item v-if="goods.length > 0" :index="index" v-for="(item,index) in goods" :key="'good-' + index">
 					<view :class="selectIndex == index ? 'bg-danger-subtle p-3 text-center' : 'p-3 text-center' ">
-						<view>{{item.title}}</view>
+						<view class="fw-bolder">{{item.title}}</view>
 						<view class="mt-3">
 							<text class="f12 text-secondary">￥</text>
 							<text class="fs-3 text-danger">{{item.price}}</text>

@@ -53,9 +53,9 @@
 		</view>
 		
 		<!-- 左侧抽屉 -->
-		<uni-drawer ref="showLeft" mode="left" @change="change($event,'showLeft')">
+		<uni-drawer ref="showLeft" mode="left">
 			<view class="close">
-				<button @click="closeDrawer('showLeft')"><text class="word-btn-white">关闭</text></button>
+				<text @click="closeDrawer('showLeft')" class="d-block text-center py-2">关闭</text>
 			</view>
 			
 			<view>

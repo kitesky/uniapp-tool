@@ -25,12 +25,12 @@
 				</view>
 			</view>
 			
-			<view style="height: 90px;"></view>
+			<view style="height: 110px;"></view>
 		</view>
 
 		<!-- 会员卡片 -->
-		<view class="bg-body-tertiary rounded-3 mx-3" style="margin-top: -90px;">
-			<view class="bg-danger-subtle rounded-top-3">
+		<view class="bg-body-tertiary rounded-3 mx-3" style="margin-top: -110px;">
+			<view class="bg-danger-subtle rounded-top-3" style="height: 110px;">
 				<view>
 					<view class="hstack justify-content-between bg-danger rounded-top-3 py-2 px-3">
 						<view>
@@ -53,8 +53,8 @@
 						<uni-grid :column="user.vip.benefits.length" :highlight="false" :show-border="false" :square="false">
 							<uni-grid-item :index="index" v-for="(item,index) in user.vip.benefits" :key="'v-' + index">
 								<view class="p-2 text-center">
-									<image style="width: 20px; height: 20px;" mode="heightFix" :src="item.icon"></image>
-									<view>{{item.title}}</view>
+									<image style="width: 30px; height: 30px;" mode="heightFix" :src="item.icon"></image>
+									<view class="mt-1">{{item.title}}</view>
 								</view>
 							</uni-grid-item>
 						</uni-grid>

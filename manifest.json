@@ -7,6 +7,8 @@
     "transformPx" : false,
     /* 5+App特有相关 */
     "app-plus" : {
+        "resizable": true,
+        "pageOrientation": "landscape",
         "usingComponents" : true,
         "nvueStyleCompiler" : "uni-app",
         "compilerVersion" : 3,
