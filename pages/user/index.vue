@@ -156,8 +156,8 @@
 					{title: "订单列表", icon: config.icons.cart, link: "/pages/user/order", text: ""},
 					{title: "账单明细", icon: config.icons.balance, link: "/pages/user/balance", text: ""},
 					{title: "积分记录", icon: config.icons.score, link: "/pages/user/score", text: ""},
-					{title: "账号管理", icon: config.icons.setting, link: "/pages/user/setting", text: ""},
-					{title: "当前版本", icon: config.icons.version, link: "/pages/user/index", text: "V24.12.31"},
+					// {title: "账号管理", icon: config.icons.setting, link: "/pages/user/setting", text: ""},
+					{title: "当前版本", icon: config.icons.version, link: "/pages/user/index", text: "V1.0.1"},
 				],
 			}
 		},

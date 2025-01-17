@@ -24,7 +24,7 @@
 				</view>
 			</view>
 			<view>
-				<uni-grid :column="2" :showBorder="false" :square="false">
+				<uni-grid :column="2" :highlight="false" :showBorder="false" :square="false">
 					<uni-grid-item v-for="(item,index) in items.recommend" :key="'recommend-' + index">
 						<view @click="onToolClick(item)" class="bg-body-secondary bg-opacity-75 rounded-3 m-2 p-3">
 							<view class="d-flex justify-content-start align-items-center">
@@ -46,7 +46,7 @@
 					查看更多<uni-icons color="6c757d" type="right" size="16"></uni-icons>
 				</view>
 			</view>
-			<uni-grid :column="2" :showBorder="false" :square="false">
+			<uni-grid :column="2" :highlight="false" :showBorder="false" :square="false">
 				<uni-grid-item v-for="(vv,ii) in v.items" :key="'tool-' + ii">
 					<view @click="onToolClick(vv)" class="bg-light rounded-3 m-2 p-2">
 						<view class="d-flex justify-content-between align-items-center">
