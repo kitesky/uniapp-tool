@@ -14,7 +14,7 @@
 		},
 		methods: {
 			...mapActions(userStore, ['wxLogin']),
-			...mapState(userStore, ['getUserMMID']),
+			...mapState(userStore, ['getInviteID']),
 			autuLogin(){
 				var that = this
 				uni.login({
@@ -25,7 +25,7 @@
 							code: loginRes.code,
 							avatar_url: '',
 							nick_name: '',
-							invite_id: that.getUserMMID()
+							invite_id: that.getInviteID()
 						})
 					},
 					fail(err) {

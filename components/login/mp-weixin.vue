@@ -5,7 +5,7 @@
 		</view>
 
 		<view class="p-3">
-			<button @click="getUserProfile" type="default">微信一键登录</button>
+			<button @click="login" type="default">微信一键登录</button>
 			<!-- <view style="font-size:14px;color: #999;margin-top: 10px;">
 				<checkbox-group @change="onChangeCheckbox">
 					<label>
@@ -29,30 +29,18 @@
 
 			}
 		},
+		onLoad() {
+			this.login()
+		},
 		methods: {
 			...mapActions(userStore, ['wxLogin']),
-			...mapState(userStore, ['getUserMMID']),
+			...mapState(userStore, ['getInviteID']),
 			onChangeCheckbox(e) {
 				if (e.detail.value) {
 					this.checkedValue = parseInt(e.detail.value[0])
 				}
 			},
-			getUserProfile() {
-				var that = this
-
-				// if (that.checkedValue != 1) {
-				// 	that.toast.error('请同意服务协议')
-				// 	return false
-				// }
-
-				uni.getUserProfile({
-					desc: '用于完善会员资料',
-					success: function(weixinRes) {
-						that.login(weixinRes.userInfo)
-					}
-				})
-			},
-			login(userInfo) {
+			login() {
 				var that = this
 				// 开启加载loading
 				uni.showLoading({
@@ -64,13 +52,11 @@
 						console.log('loginRes', loginRes)
 						that.wxLogin({
 							code: loginRes.code,
-							avatar_url: userInfo.avatarUrl,
-							nick_name: userInfo.nickName,
-							invite_id: that.getUserMMID()
+							avatar_url: '',
+							nick_name: '',
+							invite_id: that.getInviteID()
 						}).then(res => {
-							uni.reLaunch({
-								url: '/pages/user/index'
-							});
+							uni.navigateBack({ delta: 1 });
 						})
 					},
 					fail(err) {

@@ -15,6 +15,14 @@ export const userStore = defineStore('user', {
         getUserInfo() {
             return uni.getStorageSync('user')
         },
+		getInviteID() {
+		   var inviteID = uni.getStorageSync('invite_id')
+		   if (inviteID) {
+			   return parseInt(inviteID)
+		   }
+		   
+		   return 0
+		},
 		getUserMMID() {
 			var user = this.getUserInfo
 			if (user) {
