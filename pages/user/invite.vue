@@ -28,7 +28,7 @@
 					</view>
 
 					<view>
-						<image :show-menu-by-longpress="true" :src="invite.invite_qrcode" mode="widthFix" style="width: 200rpx;"></image>
+						<image :show-menu-by-longpress="true" :src="invite.invite_qrcode" mode="widthFix" style="width: 300rpx;"></image>
 						<view class="f12 text-muted">长按图片可保存或发送</view>
 						<view class="d-flex justify-content-center align-items-center gap-2 mt-3">
 							<text>邀请码:</text>

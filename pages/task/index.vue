@@ -93,7 +93,7 @@
 			this.fetch()
 		},
 		methods: {
-			...mapActions(taskStore, ['task']),
+			...mapActions(taskStore, ['task', 'taskHandler']),
 			...mapActions(userStore, ['userInfo']),
 			onLaunch(item) {
 				if (item.launch_url) {
@@ -111,17 +111,9 @@
 							uni.switchTab({url: item.launch_url});
 							break;
 						case 'request':
-							request.send({
-							    url: item.launch_url,
-							    method: 'GET',
-							    success: (res) => {
-							        resp = res.data
-									this.toast.info(resp.message)
-							    },
-							    fail: (error) => {
-							        console.log(error)
-									this.toast.error('请求失败')
-							    }
+							this.taskHandler(item.launch_url, {'code': item.code}).then(resp => {
+								this.toast.info(resp.message)
+								this.fetch()
 							})
 							break;
 					}
