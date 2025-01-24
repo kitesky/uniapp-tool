@@ -36,6 +36,13 @@
 			}
 		},
 		{
+			"path": "pages/user/recharge-point",
+			"style": {
+				"navigationBarTitleText": "点数充值",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
 			"path": "pages/user/order",
 			"style": {
 				"navigationBarTitleText": "我的订单",
@@ -46,6 +53,13 @@
 			"path": "pages/user/balance",
 			"style": {
 				"navigationBarTitleText": "账单明细",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/user/point",
+			"style": {
+				"navigationBarTitleText": "点数明细",
 				"enablePullDownRefresh": true
 			}
 		},

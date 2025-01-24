@@ -50,7 +50,7 @@
 					</view>
 				
 					<view class="f12 text-secondary">
-						<uni-grid :column="user.vip.benefits.length" :highlight="false" :show-border="false" :square="false">
+						<uni-grid :column="user.vip.benefits.length ?? 4" :highlight="false" :show-border="false" :square="false">
 							<uni-grid-item :index="index" v-for="(item,index) in user.vip.benefits" :key="'v-' + index">
 								<view class="p-2 text-center">
 									<image style="width: 30px; height: 30px;" mode="heightFix" :src="item.icon"></image>
@@ -66,16 +66,28 @@
 			<view class="mt-1">
 				<uni-grid :column="3" :highlight="false" :show-border="false" :square="false">
 					<uni-grid-item :index="0">
+						<navigator animation-type="pop-in" animation-duration="300" url="/pages/user/point">
+						<view class="grid-item-content">
+							<view>
+								<!-- <text class="text-secondary">￥</text> -->
+								<text class="grid-item-number fw-bold">{{ user.point }}</text>
+							</view>
+							<text>点数</text>
+						</view>
+						</navigator>
+					</uni-grid-item>
+					
+					<!-- <uni-grid-item :index="0">
 						<navigator animation-type="pop-in" animation-duration="300" url="/pages/user/balance">
 						<view class="grid-item-content">
 							<view>
 								<text class="text-secondary">￥</text>
 								<text class="grid-item-number fw-bold">{{ user.balance }}</text>
 							</view>
-							<text>余额</text>
+							<text>充值</text>
 						</view>
 						</navigator>
-					</uni-grid-item>
+					</uni-grid-item> -->
 					
 					<uni-grid-item :index="1">
 						<navigator animation-type="pop-in" animation-duration="300" url="/pages/user/score">
@@ -88,7 +100,7 @@
 					
 					<uni-grid-item :index="2">
 						<view class="grid-item-content">
-							<navigator animation-type="pop-in" animation-duration="300" url="/pages/user/recharge">
+							<navigator animation-type="pop-in" animation-duration="300" url="/pages/user/recharge-point">
 								<button size="mini" type="default" class="bg-danger border-0 text-white" plain="false">充值</button>
 							</navigator>
 						</view>
@@ -154,7 +166,8 @@
 				navList: [
 					{title: "创作记录", icon: config.icons.activity, link: "/pages/activity/activity", text: ""},
 					{title: "订单列表", icon: config.icons.cart, link: "/pages/user/order", text: ""},
-					{title: "账单明细", icon: config.icons.balance, link: "/pages/user/balance", text: ""},
+					// {title: "账单明细", icon: config.icons.balance, link: "/pages/user/balance", text: ""},
+					{title: "点数明细", icon: config.icons.balance, link: "/pages/user/point", text: ""},
 					{title: "积分记录", icon: config.icons.score, link: "/pages/user/score", text: ""},
 					// {title: "账号管理", icon: config.icons.setting, link: "/pages/user/setting", text: ""},
 					{title: "当前版本", icon: config.icons.version, link: "/pages/user/index", text: "V1.0.1"},

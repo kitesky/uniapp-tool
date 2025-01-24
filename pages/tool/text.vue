@@ -5,19 +5,21 @@
 				<uni-forms ref="customForm" :rules="customRules" :modelValue="customFormData" label-position="top">
 					<template v-for="(item,index) in data.form_schemas" :key="'input-' + index">
 						<uni-forms-item label-width="100%" :label="item.title" :required="item.required" :name="item.name">
-							<uni-easyinput v-if="item.field_type == 'input'" type="text" trim="all" v-model="customFormData[item.name]" :placeholder="item.placeholder"></uni-easyinput>
+							<uni-easyinput v-if="item.field_type == 'input'" type="text" maxlength="140" trim="all" v-model="customFormData[item.name]" :placeholder="item.placeholder"></uni-easyinput>
 							<uni-number-box  v-if="item.field_type == 'number'" v-model="customFormData[item.name]" :min="1" :max="5000" :step="1"></uni-number-box>
-							<uni-easyinput v-if="item.field_type == 'textarea'" type="textarea" autoHeight trim="all" v-model="customFormData[item.name]" :placeholder="item.placeholder"></uni-easyinput>
+							<uni-easyinput v-if="item.field_type == 'textarea'" type="textarea" maxlength="500" autoHeight trim="all" v-model="customFormData[item.name]" :placeholder="item.placeholder"></uni-easyinput>
 							<uni-data-select v-if="item.field_type == 'select'" v-model="customFormData[item.name]" :localdata="item.options" :label="item.title"></uni-data-select>
-							<uni-data-checkbox v-if="item.field_type == 'radio'" v-model="customFormData[item.name]" :localdata="item.options" :label="item.title"></uni-data-checkbox>
+							<uni-data-checkbox v-if="item.field_type == 'radio'" mode="button" selectedColor="red" v-model="customFormData[item.name]" :localdata="item.options" :label="item.title"></uni-data-checkbox>
 						</uni-forms-item>
 					</template>
 				</uni-forms>
 				
 				<button class="bg-danger mt-3" type="primary" @click="submit('customForm')">立即提交</button>
 				
-				<view class="mt-3 f14 text-secondary">
-					本次生成<text class="text-primary">会员免费</text>，<text class="fw-bold">非会员</text>按次扣费，请确保余额充足。费用: <text class="text-danger">{{data.price}}元/次</text>
+				<view v-if="data.price > 0" class="mt-3 f14 text-secondary">
+					<text class="text-danger">请注意: </text> 
+					这是<text class="text-primary">付费功能</text>，将按次扣除账号中的点数，请确保余额充足。
+					费用: <text class="text-danger fw-bold">{{data.price}}点/次</text>
 				</view>
 			</view>
 			

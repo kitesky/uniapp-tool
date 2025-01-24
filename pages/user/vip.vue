@@ -115,7 +115,7 @@
 			submit(ref) {
 				var that = this
 				var params = {
-					"order_type": "product",
+					"order_type": "vip",
 					"product_id":that.goods[that.selectIndex].id,
 					"amount": parseFloat(that.goods[that.selectIndex].price)
 				}
