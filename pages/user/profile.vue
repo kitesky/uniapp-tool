@@ -8,7 +8,7 @@
 				<uni-easyinput v-model="customFormData.name" placeholder="请输入姓名" />
 			</uni-forms-item>
 			<uni-forms-item label="性别" name="gender" required>
-				<uni-data-checkbox v-model="customFormData.gender" :localdata="genders" />
+				<uni-data-checkbox v-model="customFormData.gender" selectedColor="red" :localdata="genders" />
 			</uni-forms-item>
 			<uni-forms-item label="自我介绍" name="bio">
 				<uni-easyinput type="textarea" v-model="customFormData.bio" maxlength="64" placeholder="请输入自我介绍" />

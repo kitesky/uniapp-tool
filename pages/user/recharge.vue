@@ -136,15 +136,6 @@
 				})
 			},
 		},
-		watch: {
-			"customFormData.option": {
-				handler(newVal, oldVal) {
-					this.customFormData.amount = parseFloat(newVal)
-				},
-				immediate: true,
-				deep: true
-			}
-		}
 	}
 </script>
 

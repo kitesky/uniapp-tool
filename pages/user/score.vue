@@ -11,7 +11,7 @@
 								{{ user.score }}
 								</view>
 								<view @click="onExchange('score')">
-									<text class="f12 border border-danger text-danger rounded-5 px-2 py-1">立即兑换</text>
+									<text class="f12 border border-danger text-danger rounded-5 px-2 py-1">兑换</text>
 								</view>
 							</view>
 						</view>
@@ -19,14 +19,16 @@
 					
 					<uni-grid-item :index="1">
 						<view class="vstack gap-3 py-3">
-							<view class="f14">我的现金</view>
+							<view class="f14">我的奖励金</view>
 							<view class="hstack gap-2">
 								<view>
 									<text class="text-secondary">￥</text>
 									<text class="fs-3 fw-bold">{{ user.reward }}</text>
 								</view>
 								<view>
-									<text @click="onExchange('reward')" class="f12 border bg-danger text-white rounded-5 px-2 py-1">立即提现</text>
+									<navigator animation-type="pop-in" animation-duration="300" url="/pages/user/cash-out">
+									<text class="f12 border bg-danger text-white rounded-5 px-2 py-1">提现</text>
+									</navigator>
 								</view>
 							</view>
 						</view>
@@ -51,9 +53,33 @@
 					<view class="p-2">{{item}}</view>
 				</view>
 			</view>
+
+			<!-- 提现记录数据列表 -->
+			<view
+				v-if="selectIndex == 2"
+				v-for="(item, index) in items" :key="'order-' + index"
+				class="d-flex justify-content-between align-items-baseline px-3 py-3 border-bottom"
+			>
+				<view>
+					<view class="mb-2">{{item.pay_type_text}}</view>
+					<view class="f12 text-secondary mb-1">{{item.name}}/{{item.account}}</view>
+					<view class="hstack gap-1 mb-1">
+						<text class="text-secondary f12">{{item.order_no}}</text>
+						<text class="text-secondary f12" @click="copyOrderNo(item.order_no)">复制</text>
+					</view>
+					<view class="f12 text-secondary mb-1">{{item.created_at}}</view>
+					<view class="mt-2">
+						<text class="f14">￥{{item.amount}}</text>
+					</view>
+				</view>
+				<view>
+					<text :style="{color: item.status_color}" class="f11 px-2 py-1 border rounded-5">{{item.status_text}}</text>
+				</view>
+			</view>			
 			
 			<!-- 数据列表 -->
 			<view
+				v-else
 				v-for="(item, index) in items" :key="'order-' + index"
 				class="d-flex justify-content-between align-items-baseline px-3 py-3 border-bottom"
 			>
@@ -86,6 +112,7 @@
 import {mapActions} from 'pinia'
 import {scoreStore} from '@/stores/score'
 import {rewardStore} from '@/stores/reward'
+import {transferStore} from '@/stores/transfer'
 import {userStore} from '@/stores/user'
 export default {
 	data() {
@@ -102,7 +129,7 @@ export default {
 				contentrefresh: '正在加载中',
 				contentnomore: '已经到底了'
 			},
-			tabs: ['积分明细', '现金明细'],
+			tabs: ['积分明细', '奖励金明细', '提现记录'],
 			selectIndex: 0,
 			popup: {
 				type: '',
@@ -138,6 +165,7 @@ export default {
 	methods: {
 		...mapActions(scoreStore, ['getScoreList', 'scoreExchange']),
 		...mapActions(rewardStore, ['getRewardList', 'rewardExchange']),
+		...mapActions(transferStore, ['getTransferList']),
 		...mapActions(userStore, ['userInfo']),
 		onTabClick(index) {
 			this.selectIndex = index
@@ -195,6 +223,9 @@ export default {
 				case 1:
 					this.fetchReward()
 					break
+				case 2:
+					this.fetchTransfer()
+					break
 			}
 		},
 		fetchUser() {
@@ -242,6 +273,34 @@ export default {
 				}
 				
 				uni.stopPullDownRefresh()
+			})
+		},
+		fetchTransfer() {
+			this.getTransferList(this.params).then(resp => {
+				// 追加数据
+				resp.data.items.forEach(item => {
+					this.items.push(item)
+				})
+
+				// 修改状态
+				if (this.items.length < resp.data.total) {
+					this.status = 'more'
+				}
+
+				if (this.items.length == resp.data.total) {
+					this.status = 'noMore'
+				}
+				
+				uni.stopPullDownRefresh()
+			})
+		},
+		copyOrderNo(text) {
+			var that = this
+			uni.setClipboardData({
+				data: text,
+				success: function () {
+					that.toast.success('复制成功')
+				}
 			})
 		}
 	}

@@ -42,7 +42,7 @@
 					selectIndex: {
 						rules: [{
 							required: true,
-							errorMessage: '充值金额不能为空'
+							errorMessage: '充值产品不能为空'
 						}]
 					},
 				},
@@ -116,15 +116,7 @@
 				})
 			},
 		},
-		watch: {
-			"customFormData.option": {
-				handler(newVal, oldVal) {
-					this.customFormData.amount = parseFloat(newVal)
-				},
-				immediate: true,
-				deep: true
-			}
-		}
+		watch: {}
 	}
 </script>
 

@@ -50,7 +50,7 @@
 					</view>
 				
 					<view class="f12 text-secondary">
-						<uni-grid :column="user.vip.benefits.length ?? 4" :highlight="false" :show-border="false" :square="false">
+						<uni-grid :column="4" :highlight="false" :show-border="false" :square="false">
 							<uni-grid-item :index="index" v-for="(item,index) in user.vip.benefits" :key="'v-' + index">
 								<view class="p-2 text-center">
 									<image style="width: 30px; height: 30px;" mode="heightFix" :src="item.icon"></image>
@@ -169,7 +169,7 @@
 					// {title: "账单明细", icon: config.icons.balance, link: "/pages/user/balance", text: ""},
 					{title: "点数明细", icon: config.icons.balance, link: "/pages/user/point", text: ""},
 					{title: "积分记录", icon: config.icons.score, link: "/pages/user/score", text: ""},
-					// {title: "账号管理", icon: config.icons.setting, link: "/pages/user/setting", text: ""},
+					{title: "账号管理", icon: config.icons.setting, link: "/pages/user/setting", text: ""},
 					{title: "当前版本", icon: config.icons.version, link: "/pages/user/index", text: "V1.0.1"},
 				],
 			}

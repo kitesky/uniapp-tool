@@ -54,6 +54,52 @@ export const userStore = defineStore('user', {
                 })
             })
         },
+		// 获取用户收款信息
+		paymentAccount(payType) {
+		    return new Promise((resolve, reject) => {
+		        request.send({
+		            url: '/user/payment-account/' + payType,
+		            method: 'GET',
+		            success: (res) => {
+						resolve(res.data)
+		            },
+		            fail: (error) => {
+		                reject(error)
+		            }
+		        })
+		    })
+		},
+		// 获取用户收款信息列表
+		paymentAccountList() {
+		    return new Promise((resolve, reject) => {
+		        request.send({
+		            url: '/user/payment-account-list',
+		            method: 'GET',
+		            success: (res) => {
+						resolve(res.data)
+		            },
+		            fail: (error) => {
+		                reject(error)
+		            }
+		        })
+		    })
+		},
+		// 更新用户收款信息
+		setPaymentAccount(params) {
+		    return new Promise((resolve, reject) => {
+		        request.send({
+		            url: '/user/set-payment-account',
+		            method: 'POST',
+		            data: params,
+		            success: (res) => {
+		                resolve(res.data)
+		            },
+		            fail: (error) => {
+		                reject(error)
+		            }
+		        })
+		    })
+		},
         // 更新用户信息
         setProfile(params) {
             return new Promise((resolve, reject) => {

@@ -1,6 +1,5 @@
 {
-	"pages": [
-		{
+	"pages": [{
 			"path": "pages/index/index",
 			"style": {
 				"navigationBarTitleText": "首页",
@@ -74,90 +73,93 @@
 			"path": "pages/user/setting",
 			"style": {
 				"navigationBarTitleText": "账号设置",
-				"enablePullDownRefresh": true
-			}
-		},
-		{
-			"path" : "pages/auth/login",
-			"style" : 
-			{
-				"navigationBarTitleText" : "用户登录"
-			}
-		},
-		{
-			"path" : "pages/category/index",
-			"style" : 
-			{
-				"navigationBarTitleText" : "分类",
 				"enablePullDownRefresh": false
 			}
 		},
 		{
-			"path" : "pages/search/search",
-			"style" : 
-			{
-				"navigationBarTitleText" : "搜索"
+			"path": "pages/auth/login",
+			"style": {
+				"navigationBarTitleText": "用户登录"
 			}
 		},
 		{
-			"path" : "pages/tool/test",
-			"style" : 
-			{
-				"navigationBarTitleText" : "测试页面"
+			"path": "pages/category/index",
+			"style": {
+				"navigationBarTitleText": "分类",
+				"enablePullDownRefresh": false
 			}
 		},
 		{
-			"path" : "pages/chat/chat",
-			"style" : 
-			{
-				"navigationBarTitleText" : "对话"
+			"path": "pages/search/search",
+			"style": {
+				"navigationBarTitleText": "搜索"
+			}
+		},
+		{
+			"path": "pages/tool/test",
+			"style": {
+				"navigationBarTitleText": "测试页面"
+			}
+		},
+		{
+			"path": "pages/chat/chat",
+			"style": {
+				"navigationBarTitleText": "对话"
 				// "navigationStyle": "custom"
 			}
 		},
 		{
-			"path" : "pages/task/check-in",
-			"style" : 
-			{
-				"navigationBarTitleText" : "签到中心",
+			"path": "pages/task/check-in",
+			"style": {
+				"navigationBarTitleText": "签到中心",
 				"enablePullDownRefresh": false
 			}
 		},
 		{
-			"path" : "pages/user/vip",
-			"style" : 
-			{
-				"navigationBarTitleText" : "开通会员",
+			"path": "pages/user/vip",
+			"style": {
+				"navigationBarTitleText": "开通会员",
 				"enablePullDownRefresh": true
 			}
 		},
 		{
-			"path" : "pages/user/invite",
-			"style" : 
-			{
-				"navigationBarTitleText" : "邀请注册",
+			"path": "pages/user/invite",
+			"style": {
+				"navigationBarTitleText": "邀请注册",
 				"enablePullDownRefresh": false
 			}
 		},
 		{
-			"path" : "pages/activity/activity",
-			"style" : 
-			{
-				"navigationBarTitleText" : "创作记录",
+			"path": "pages/activity/activity",
+			"style": {
+				"navigationBarTitleText": "创作记录",
 				"enablePullDownRefresh": true
 			}
 		},
 		{
-			"path" : "pages/activity/detail",
-			"style" : 
-			{
-				"navigationBarTitleText" : "记录详情"
+			"path": "pages/activity/detail",
+			"style": {
+				"navigationBarTitleText": "记录详情"
 			}
 		},
 		{
-			"path" : "pages/tool/text",
+			"path": "pages/tool/text",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+		{
+			"path": "pages/user/cash-out",
+			"style": {
+				"navigationBarTitleText": "提现",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path" : "pages/user/payment-account",
 			"style" : 
 			{
-				"navigationBarTitleText" : ""
+				"navigationBarTitleText" : "收款信息"
 			}
 		}
 	],
