@@ -6,6 +6,10 @@
 					<text>{{item.title}}:</text>
 					<text class="ms-2 text-secondary">{{item.value}}</text>
 				</view>
+				<button size="default" type="default"
+					open-type="share"
+					style="color:#ffffff;backgroundColor:#1AAD19;borderColor:#1AAD19"
+					hover-class="is-hover">分享给好友</button>
 			</view>
 			
 			<view class="mt-3 bg-body-tertiary rounded-3 p-3">
