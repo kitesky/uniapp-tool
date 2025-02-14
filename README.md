@@ -1,37 +1,50 @@
-# uniapp-tool
+### 介绍
 
-#### 介绍
-AI写作小程序，使用 uniapp + Gin 开发，AI能力接入DeepSeek API服务。
+AI写作小程序，AI能力接入DeepSeek API服务。
 
-#### 软件架构
-软件架构说明
+### 软件架构
 
+1、小程序采用Uniapp开发，是一个使用 Vue.js 开发所有前端应用的框架，开发者编写一套代码，可发布到iOS、Android、Web（响应式）、以及各种小程序（微信/支付宝/百度/头条/飞书/QQ/快手/钉钉/淘宝）、快应用等多个平台。
 
-#### 安装教程
+2、服务端采用Go语言开发，主要技术栈：Gin、GORM、asynq、robfig/corn
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+### 在线体验
 
-#### 使用说明
+服务端仓库地址：
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+https://gitee.com/kitesky/app-server
 
-#### 参与贡献
+微信小程序(请使用微信扫一扫)
 
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
+![美智合AI](https://api.idcd.com/assets/example/10001307.png)
 
 
-#### 特技
+### 使用说明
 
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+
+1、本项目为个人兴趣爱好而开发，开源并且提供完整代码，不保证代码中无缺陷，也不保证能够及时修复BUG。正式用于运营需谨慎使用，对于未知缺陷造成的损失，不负任何责任，推荐用于学习和测试。
+
+2、文档不完善，但代码结构还是比较清晰，作为全栈项目，不适合新手小白。部署运行有一定的难度，不提供任何无偿咨询和指导。
+
+3、**提问题、请求协助，请先打赏，金额随意。** 
+
+
+![打赏](https://api.idcd.com/assets/example/fengzheng.jpg)
+
+
+### 页面截图
+
+![部分截图](https://api.idcd.com/assets/example/p1.png)
+
+![部分截图](https://api.idcd.com/assets/example/p2.png)
+
+![部分截图](https://api.idcd.com/assets/example/p3.png)
+
+### 作者信息
+
+开发者：风筝
+
+微信号: kite365 （添加好友，注明来意）
+
+邮箱：kite365@gmail.com
+
