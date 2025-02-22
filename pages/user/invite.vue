@@ -58,17 +58,16 @@
 				<text @click="closeDrawer('showLeft')" class="d-block text-center py-2">关闭</text>
 			</view>
 			
-			<view>
+			<scroll-view scroll-y="true" class="h-100">
 				<uni-list>
 					<uni-list-item 
 						v-for="(item,index) in invite.user_list" :key="'invite-' + index" 
 						:title="item.name" 
-						:note="item.mmid"
 						:thumb="item.avatar"
 						thumb-size="lg"
 					/>
 				</uni-list>
-			</view>
+			</scroll-view>
 		</uni-drawer>
 	</view>
 </template>
