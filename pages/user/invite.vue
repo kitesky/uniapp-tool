@@ -63,6 +63,7 @@
 					<uni-list-item 
 						v-for="(item,index) in invite.user_list" :key="'invite-' + index" 
 						:title="item.name" 
+						:note="item.mmid ? String(item.mmid) : ''"
 						:thumb="item.avatar"
 						thumb-size="lg"
 					/>
